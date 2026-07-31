@@ -8,7 +8,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #000;
+            background: #060b14;
             color: #e7e9ea;
             min-height: 100vh;
             display: flex;
@@ -18,18 +18,19 @@
         .container {
             width: 100%;
             max-width: 600px;
-            border-left: 1px solid #2f3336;
-            border-right: 1px solid #2f3336;
+            border-left: 1px solid #1a2030;
+            border-right: 1px solid #1a2030;
             min-height: 100vh;
             position: relative;
+            background: #060b14;
         }
         .header {
             position: sticky;
             top: 0;
-            background: rgba(0,0,0,0.9);
+            background: rgba(6, 11, 20, 0.92);
             backdrop-filter: blur(12px);
             z-index: 50;
-            border-bottom: 1px solid #2f3336;
+            border-bottom: 1px solid #1a2030;
             padding: 12px 16px;
             display: flex;
             align-items: center;
@@ -53,12 +54,12 @@
         }
         .header-text .motto {
             font-size: 0.75rem;
-            color: #71767b;
+            color: #5a6070;
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
         .compose-box {
-            border-bottom: 1px solid #2f3336;
+            border-bottom: 1px solid #1a2030;
             padding: 14px 16px;
             display: flex;
             gap: 12px;
@@ -75,7 +76,7 @@
         }
         .compose-right { flex: 1; }
         .compose-placeholder {
-            color: #71767b;
+            color: #5a6070;
             font-size: 1.15rem;
             margin-bottom: 12px;
             padding-top: 6px;
@@ -130,7 +131,7 @@
         .nuke-btn:active { transform: scale(0.95); }
         .feed { display: flex; flex-direction: column; }
         .post {
-            border-bottom: 1px solid #2f3336;
+            border-bottom: 1px solid #1a2030;
             padding: 12px 16px;
             display: flex;
             gap: 12px;
@@ -142,7 +143,7 @@
             from { opacity: 0; transform: translateY(-15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .post:hover { background: rgba(255,255,255,0.025); }
+        .post:hover { background: rgba(255,255,255,0.02); }
         .post-body { flex: 1; min-width: 0; }
         .post-header-line {
             display: flex;
@@ -161,9 +162,9 @@
             font-size: 0.9rem;
             line-height: 1;
         }
-        .post-handle { color: #71767b; font-size: 0.9rem; }
-        .post-dot { color: #71767b; font-size: 0.8rem; }
-        .post-time { color: #71767b; font-size: 0.85rem; }
+        .post-handle { color: #5a6070; font-size: 0.9rem; }
+        .post-dot { color: #5a6070; font-size: 0.8rem; }
+        .post-time { color: #5a6070; font-size: 0.85rem; }
         .post-text {
             font-size: 1.05rem;
             line-height: 1.45;
@@ -186,7 +187,7 @@
         .post-tags a:hover { color: #d4af37; text-decoration: underline; }
         .reactions {
             display: flex;
-            gap: 20px;
+            gap: 18px;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -196,7 +197,7 @@
             gap: 5px;
             background: none;
             border: none;
-            color: #71767b;
+            color: #5a6070;
             font-size: 0.85rem;
             cursor: pointer;
             padding: 4px 6px;
@@ -243,10 +244,11 @@
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: #71767b;
+            color: #5a6070;
             font-size: 1.1rem;
-            border-bottom: 1px solid #2f3336;
+            border-bottom: 1px solid #1a2030;
         }
+
         /* NUKE */
         .nuke-overlay {
             position: fixed;
@@ -255,62 +257,87 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at center, #fff 0%, #e62b1e 20%, #b32018 40%, #0a1128 70%);
+            background: #060b14;
             opacity: 0;
             pointer-events: none;
+            transition: opacity 0.3s;
         }
-        .nuke-overlay.anim {
-            animation: nukeFlash 1.6s ease-out forwards;
+        .nuke-overlay.active {
+            opacity: 1;
+            pointer-events: all;
         }
-        @keyframes nukeFlash {
-            0% { opacity: 0; transform: scale(0.1); filter: brightness(10); }
-            15% { opacity: 1; transform: scale(2); filter: brightness(12); }
-            40% { opacity: 1; transform: scale(1.2); filter: brightness(6); }
-            70% { opacity: 0.6; transform: scale(1.5); filter: brightness(3); }
-            100% { opacity: 0; transform: scale(3); filter: brightness(0); }
+        .nuke-red {
+            position: absolute;
+            inset: 0;
+            background: #e62b1e;
+            opacity: 0;
+            animation: nukeRedPulse 2.5s ease-in-out forwards;
+        }
+        @keyframes nukeRedPulse {
+            0% { opacity: 0; }
+            20% { opacity: 0.9; }
+            40% { opacity: 0.3; }
+            60% { opacity: 1; }
+            80% { opacity: 0.2; }
+            100% { opacity: 0; }
+        }
+        .nuke-flash {
+            position: absolute;
+            inset: 0;
+            background: #fff;
+            opacity: 0;
+            animation: nukeFlashWhite 2.5s ease-out forwards;
+        }
+        @keyframes nukeFlashWhite {
+            0% { opacity: 0; }
+            55% { opacity: 0; }
+            65% { opacity: 1; }
+            80% { opacity: 0.8; }
+            100% { opacity: 0; }
         }
         .nuke-text {
-            font-size: 4rem;
+            position: relative;
+            z-index: 10;
+            font-size: 4.5rem;
             font-weight: 900;
             color: #fff;
-            text-shadow: 0 0 30px #d4af37, 0 0 60px #e62b1e, 0 0 100px #fff;
             text-align: center;
-            letter-spacing: 4px;
+            text-shadow: 0 0 20px #d4af37, 0 0 40px #e62b1e;
             opacity: 0;
+            animation: nukeTextShow 2.5s ease-out forwards;
         }
-        .nuke-overlay.anim .nuke-text {
-            animation: nukeText 1.6s ease-out forwards;
+        @keyframes nukeTextShow {
+            0% { opacity: 0; transform: scale(0.3); }
+            15% { opacity: 1; transform: scale(1.3); }
+            30% { transform: scale(1); }
+            70% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0; transform: scale(2); }
         }
-        @keyframes nukeText {
-            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
-            20% { transform: scale(1.8) rotate(5deg); opacity: 1; }
-            50% { transform: scale(1) rotate(0deg); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
+        .post-shake {
+            animation: shakePost 0.15s ease-in-out infinite;
+        }
+        @keyframes shakePost {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-2px, 1px); }
+            50% { transform: translate(2px, -1px); }
+            75% { transform: translate(-1px, 2px); }
         }
         .post-burn {
-            animation: burnAway 0.7s ease-in forwards;
+            animation: burnAway 0.6s ease-in forwards;
         }
         @keyframes burnAway {
-            0% { opacity: 1; transform: scale(1) rotate(0deg); filter: brightness(1); }
-            30% { opacity: 0.8; transform: scale(1.02) rotate(1deg); filter: brightness(2) sepia(1) hue-rotate(-30deg) saturate(3); }
-            60% { opacity: 0.3; transform: scale(0.95) rotate(-2deg); filter: brightness(4) sepia(1) hue-rotate(-50deg) saturate(5); }
-            100% { opacity: 0; transform: scale(0.3) rotate(5deg); filter: brightness(6) sepia(1) hue-rotate(-60deg); }
+            0% { opacity: 1; transform: scale(1); filter: brightness(1); }
+            30% { opacity: 0.7; transform: scale(1.01) rotate(0.5deg); filter: brightness(3) sepia(1) hue-rotate(-20deg) saturate(4); }
+            70% { opacity: 0.2; transform: scale(0.9) rotate(-1deg); filter: brightness(5) sepia(1) hue-rotate(-40deg) saturate(6); }
+            100% { opacity: 0; transform: scale(0.5); filter: brightness(8) sepia(1); }
         }
-        .shake-body {
-            animation: shakeBody 0.6s cubic-bezier(.36,.07,.19,.97) both;
-        }
-        @keyframes shakeBody {
-            10%, 90% { transform: translate3d(-3px, 0, 0); }
-            20%, 80% { transform: translate3d(6px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-10px, 0, 0); }
-            40%, 60% { transform: translate3d(10px, 0, 0); }
-        }
+
         .bot-toast {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(20,20,20,0.95);
-            border: 1px solid #2f3336;
+            background: rgba(10, 15, 25, 0.95);
+            border: 1px solid #1a2030;
             color: #d4af37;
             padding: 10px 16px;
             border-radius: 8px;
@@ -331,14 +358,70 @@
 <body>
 <div class="container">
     <div class="header">
-        <div class="header-icon"><svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;"><rect x="0" y="0" width="48" height="3.69" fill="#B22234"/><rect x="0" y="3.69" width="48" height="3.69" fill="#fff"/><rect x="0" y="7.38" width="48" height="3.69" fill="#B22234"/><rect x="0" y="11.07" width="48" height="3.69" fill="#fff"/><rect x="0" y="14.76" width="48" height="3.69" fill="#B22234"/><rect x="0" y="18.45" width="48" height="3.69" fill="#fff"/><rect x="0" y="22.14" width="48" height="3.69" fill="#B22234"/><rect x="0" y="25.83" width="48" height="3.69" fill="#fff"/><rect x="0" y="29.52" width="48" height="3.69" fill="#B22234"/><rect x="0" y="33.21" width="48" height="3.69" fill="#fff"/><rect x="0" y="36.9" width="48" height="3.69" fill="#B22234"/><rect x="0" y="40.59" width="48" height="3.69" fill="#fff"/><rect x="0" y="44.28" width="48" height="3.72" fill="#B22234"/><rect x="0" y="0" width="19.2" height="25.83" fill="#3C3B6E"/><g fill="#fff"><circle cx="1.6" cy="1.3" r="0.7"/><circle cx="4.8" cy="1.3" r="0.7"/><circle cx="8" cy="1.3" r="0.7"/><circle cx="11.2" cy="1.3" r="0.7"/><circle cx="14.4" cy="1.3" r="0.7"/><circle cx="17.6" cy="1.3" r="0.7"/><circle cx="3.2" cy="3.9" r="0.7"/><circle cx="6.4" cy="3.9" r="0.7"/><circle cx="9.6" cy="3.9" r="0.7"/><circle cx="12.8" cy="3.9" r="0.7"/><circle cx="16" cy="3.9" r="0.7"/><circle cx="1.6" cy="6.5" r="0.7"/><circle cx="4.8" cy="6.5" r="0.7"/><circle cx="8" cy="6.5" r="0.7"/><circle cx="11.2" cy="6.5" r="0.7"/><circle cx="14.4" cy="6.5" r="0.7"/><circle cx="17.6" cy="6.5" r="0.7"/><circle cx="3.2" cy="9.1" r="0.7"/><circle cx="6.4" cy="9.1" r="0.7"/><circle cx="9.6" cy="9.1" r="0.7"/><circle cx="12.8" cy="9.1" r="0.7"/><circle cx="16" cy="9.1" r="0.7"/><circle cx="1.6" cy="11.7" r="0.7"/><circle cx="4.8" cy="11.7" r="0.7"/><circle cx="8" cy="11.7" r="0.7"/><circle cx="11.2" cy="11.7" r="0.7"/><circle cx="14.4" cy="11.7" r="0.7"/><circle cx="17.6" cy="11.7" r="0.7"/><circle cx="3.2" cy="14.3" r="0.7"/><circle cx="6.4" cy="14.3" r="0.7"/><circle cx="9.6" cy="14.3" r="0.7"/><circle cx="12.8" cy="14.3" r="0.7"/><circle cx="16" cy="14.3" r="0.7"/><circle cx="1.6" cy="16.9" r="0.7"/><circle cx="4.8" cy="16.9" r="0.7"/><circle cx="8" cy="16.9" r="0.7"/><circle cx="11.2" cy="16.9" r="0.7"/><circle cx="14.4" cy="16.9" r="0.7"/><circle cx="17.6" cy="16.9" r="0.7"/><circle cx="3.2" cy="19.5" r="0.7"/><circle cx="6.4" cy="19.5" r="0.7"/><circle cx="9.6" cy="19.5" r="0.7"/><circle cx="12.8" cy="19.5" r="0.7"/><circle cx="16" cy="19.5" r="0.7"/><circle cx="1.6" cy="22.1" r="0.7"/><circle cx="4.8" cy="22.1" r="0.7"/><circle cx="8" cy="22.1" r="0.7"/><circle cx="11.2" cy="22.1" r="0.7"/><circle cx="14.4" cy="22.1" r="0.7"/><circle cx="17.6" cy="22.1" r="0.7"/></g></svg></div>
+        <div class="header-icon">
+            <svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
+                <rect x="0" y="0" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="3.69" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="7.38" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="11.07" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="14.76" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="18.45" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="22.14" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="25.83" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="29.52" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="33.21" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="36.9" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="40.59" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="44.28" width="48" height="3.72" fill="#B22234"/>
+                <rect x="0" y="0" width="19.2" height="25.83" fill="#3C3B6E"/>
+                <g fill="#fff">
+                    <circle cx="1.6" cy="1.3" r="0.7"/><circle cx="4.8" cy="1.3" r="0.7"/><circle cx="8" cy="1.3" r="0.7"/><circle cx="11.2" cy="1.3" r="0.7"/><circle cx="14.4" cy="1.3" r="0.7"/><circle cx="17.6" cy="1.3" r="0.7"/>
+                    <circle cx="3.2" cy="3.9" r="0.7"/><circle cx="6.4" cy="3.9" r="0.7"/><circle cx="9.6" cy="3.9" r="0.7"/><circle cx="12.8" cy="3.9" r="0.7"/><circle cx="16" cy="3.9" r="0.7"/>
+                    <circle cx="1.6" cy="6.5" r="0.7"/><circle cx="4.8" cy="6.5" r="0.7"/><circle cx="8" cy="6.5" r="0.7"/><circle cx="11.2" cy="6.5" r="0.7"/><circle cx="14.4" cy="6.5" r="0.7"/><circle cx="17.6" cy="6.5" r="0.7"/>
+                    <circle cx="3.2" cy="9.1" r="0.7"/><circle cx="6.4" cy="9.1" r="0.7"/><circle cx="9.6" cy="9.1" r="0.7"/><circle cx="12.8" cy="9.1" r="0.7"/><circle cx="16" cy="9.1" r="0.7"/>
+                    <circle cx="1.6" cy="11.7" r="0.7"/><circle cx="4.8" cy="11.7" r="0.7"/><circle cx="8" cy="11.7" r="0.7"/><circle cx="11.2" cy="11.7" r="0.7"/><circle cx="14.4" cy="11.7" r="0.7"/><circle cx="17.6" cy="11.7" r="0.7"/>
+                    <circle cx="3.2" cy="14.3" r="0.7"/><circle cx="6.4" cy="14.3" r="0.7"/><circle cx="9.6" cy="14.3" r="0.7"/><circle cx="12.8" cy="14.3" r="0.7"/><circle cx="16" cy="14.3" r="0.7"/>
+                    <circle cx="1.6" cy="16.9" r="0.7"/><circle cx="4.8" cy="16.9" r="0.7"/><circle cx="8" cy="16.9" r="0.7"/><circle cx="11.2" cy="16.9" r="0.7"/><circle cx="14.4" cy="16.9" r="0.7"/><circle cx="17.6" cy="16.9" r="0.7"/>
+                    <circle cx="3.2" cy="19.5" r="0.7"/><circle cx="6.4" cy="19.5" r="0.7"/><circle cx="9.6" cy="19.5" r="0.7"/><circle cx="12.8" cy="19.5" r="0.7"/><circle cx="16" cy="19.5" r="0.7"/>
+                    <circle cx="1.6" cy="22.1" r="0.7"/><circle cx="4.8" cy="22.1" r="0.7"/><circle cx="8" cy="22.1" r="0.7"/><circle cx="11.2" cy="22.1" r="0.7"/><circle cx="14.4" cy="22.1" r="0.7"/><circle cx="17.6" cy="22.1" r="0.7"/>
+                </g>
+            </svg>
+        </div>
         <div class="header-text">
             <h1>thrulala</h1>
             <div class="motto">Truth Social на стероидах</div>
         </div>
     </div>
     <div class="compose-box">
-        <div class="avatar"><svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;"><rect x="0" y="0" width="48" height="3.69" fill="#B22234"/><rect x="0" y="3.69" width="48" height="3.69" fill="#fff"/><rect x="0" y="7.38" width="48" height="3.69" fill="#B22234"/><rect x="0" y="11.07" width="48" height="3.69" fill="#fff"/><rect x="0" y="14.76" width="48" height="3.69" fill="#B22234"/><rect x="0" y="18.45" width="48" height="3.69" fill="#fff"/><rect x="0" y="22.14" width="48" height="3.69" fill="#B22234"/><rect x="0" y="25.83" width="48" height="3.69" fill="#fff"/><rect x="0" y="29.52" width="48" height="3.69" fill="#B22234"/><rect x="0" y="33.21" width="48" height="3.69" fill="#fff"/><rect x="0" y="36.9" width="48" height="3.69" fill="#B22234"/><rect x="0" y="40.59" width="48" height="3.69" fill="#fff"/><rect x="0" y="44.28" width="48" height="3.72" fill="#B22234"/><rect x="0" y="0" width="19.2" height="25.83" fill="#3C3B6E"/><g fill="#fff"><circle cx="1.6" cy="1.3" r="0.7"/><circle cx="4.8" cy="1.3" r="0.7"/><circle cx="8" cy="1.3" r="0.7"/><circle cx="11.2" cy="1.3" r="0.7"/><circle cx="14.4" cy="1.3" r="0.7"/><circle cx="17.6" cy="1.3" r="0.7"/><circle cx="3.2" cy="3.9" r="0.7"/><circle cx="6.4" cy="3.9" r="0.7"/><circle cx="9.6" cy="3.9" r="0.7"/><circle cx="12.8" cy="3.9" r="0.7"/><circle cx="16" cy="3.9" r="0.7"/><circle cx="1.6" cy="6.5" r="0.7"/><circle cx="4.8" cy="6.5" r="0.7"/><circle cx="8" cy="6.5" r="0.7"/><circle cx="11.2" cy="6.5" r="0.7"/><circle cx="14.4" cy="6.5" r="0.7"/><circle cx="17.6" cy="6.5" r="0.7"/><circle cx="3.2" cy="9.1" r="0.7"/><circle cx="6.4" cy="9.1" r="0.7"/><circle cx="9.6" cy="9.1" r="0.7"/><circle cx="12.8" cy="9.1" r="0.7"/><circle cx="16" cy="9.1" r="0.7"/><circle cx="1.6" cy="11.7" r="0.7"/><circle cx="4.8" cy="11.7" r="0.7"/><circle cx="8" cy="11.7" r="0.7"/><circle cx="11.2" cy="11.7" r="0.7"/><circle cx="14.4" cy="11.7" r="0.7"/><circle cx="17.6" cy="11.7" r="0.7"/><circle cx="3.2" cy="14.3" r="0.7"/><circle cx="6.4" cy="14.3" r="0.7"/><circle cx="9.6" cy="14.3" r="0.7"/><circle cx="12.8" cy="14.3" r="0.7"/><circle cx="16" cy="14.3" r="0.7"/><circle cx="1.6" cy="16.9" r="0.7"/><circle cx="4.8" cy="16.9" r="0.7"/><circle cx="8" cy="16.9" r="0.7"/><circle cx="11.2" cy="16.9" r="0.7"/><circle cx="14.4" cy="16.9" r="0.7"/><circle cx="17.6" cy="16.9" r="0.7"/><circle cx="3.2" cy="19.5" r="0.7"/><circle cx="6.4" cy="19.5" r="0.7"/><circle cx="9.6" cy="19.5" r="0.7"/><circle cx="12.8" cy="19.5" r="0.7"/><circle cx="16" cy="19.5" r="0.7"/><circle cx="1.6" cy="22.1" r="0.7"/><circle cx="4.8" cy="22.1" r="0.7"/><circle cx="8" cy="22.1" r="0.7"/><circle cx="11.2" cy="22.1" r="0.7"/><circle cx="14.4" cy="22.1" r="0.7"/><circle cx="17.6" cy="22.1" r="0.7"/></g></svg></div>
+        <div class="avatar">
+            <svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
+                <rect x="0" y="0" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="3.69" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="7.38" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="11.07" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="14.76" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="18.45" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="22.14" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="25.83" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="29.52" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="33.21" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="36.9" width="48" height="3.69" fill="#B22234"/>
+                <rect x="0" y="40.59" width="48" height="3.69" fill="#fff"/>
+                <rect x="0" y="44.28" width="48" height="3.72" fill="#B22234"/>
+                <rect x="0" y="0" width="19.2" height="25.83" fill="#3C3B6E"/>
+                <g fill="#fff">
+                    <circle cx="1.6" cy="1.3" r="0.7"/><circle cx="4.8" cy="1.3" r="0.7"/><circle cx="8" cy="1.3" r="0.7"/><circle cx="11.2" cy="1.3" r="0.7"/><circle cx="14.4" cy="1.3" r="0.7"/><circle cx="17.6" cy="1.3" r="0.7"/>
+                    <circle cx="3.2" cy="3.9" r="0.7"/><circle cx="6.4" cy="3.9" r="0.7"/><circle cx="9.6" cy="3.9" r="0.7"/><circle cx="12.8" cy="3.9" r="0.7"/><circle cx="16" cy="3.9" r="0.7"/>
+                    <circle cx="1.6" cy="6.5" r="0.7"/><circle cx="4.8" cy="6.5" r="0.7"/><circle cx="8" cy="6.5" r="0.7"/><circle cx="11.2" cy="6.5" r="0.7"/><circle cx="14.4" cy="6.5" r="0.7"/><circle cx="17.6" cy="6.5" r="0.7"/>
+                    <circle cx="3.2" cy="9.1" r="0.7"/><circle cx="6.4" cy="9.1" r="0.7"/><circle cx="9.6" cy="9.1" r="0.7"/><circle cx="12.8" cy="9.1" r="0.7"/><circle cx="16" cy="9.1" r="0.7"/>
+                    <circle cx="1.6" cy="11.7" r="0.7"/><circle cx="4.8" cy="11.7" r="0.7"/><circle cx="8" cy="11.7" r="0.7"/><circle cx="11.2" cy="11.7" r="0.7"/><circle cx="14.4" cy="11.7" r="0.7"/><circle cx="17.6" cy="11.7" r="0.7"/>
+                    <circle cx="3.2" cy="14.3" r="0.7"/><circle cx="6.4" cy="14.3" r="0.7"/><circle cx="9.6" cy="14.3" r="0.7"/><circle cx="12.8" cy="14.3" r="0.7"/><circle cx="16" cy="14.3" r="0.7"/>
+                    <circle cx="1.6" cy="16.9" r="0.7"/><circle cx="4.8" cy="16.9" r="0.7"/><circle cx="8" cy="16.9" r="0.7"/><circle cx="11.2" cy="16.9" r="0.7"/><circle cx="14.4" cy="16.9" r="0.7"/><circle cx="17.6" cy="16.9" r="0.7"/>
+                    <circle cx="3.2" cy="19.5" r="0.7"/><circle cx="6.4" cy="19.5" r="0.7"/><circle cx="9.6" cy="19.5" r="0.7"/><circle cx="12.8" cy="19.5" r="0.7"/><circle cx="16" cy="19.5" r="0.7"/>
+                    <circle cx="1.6" cy="22.1" r="0.7"/><circle cx="4.8" cy="22.1" r="0.7"/><circle cx="8" cy="22.1" r="0.7"/><circle cx="11.2" cy="22.1" r="0.7"/><circle cx="14.4" cy="22.1" r="0.7"/><circle cx="17.6" cy="22.1" r="0.7"/>
+                </g>
+            </svg>
+        </div>
         <div class="compose-right">
             <div class="compose-placeholder">Что происходит?</div>
             <div class="compose-actions">

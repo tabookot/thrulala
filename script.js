@@ -84,19 +84,17 @@ const nukeMsgs = [
     "Радикальные левые в шоке от очистки","Память очищена. Как и Вашингтон.","Все посты депортированы в облако забвения"
 ];
 
-const STORAGE_KEY = 'thrulala_posts_v6';
-const activeViral = new Set();
+const STORAGE_KEY = 'thrulala_posts_v8';
 
 const US_FLAG_SVG = `<svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;"><rect x="0" y="0" width="48" height="3.69" fill="#B22234"/><rect x="0" y="3.69" width="48" height="3.69" fill="#fff"/><rect x="0" y="7.38" width="48" height="3.69" fill="#B22234"/><rect x="0" y="11.07" width="48" height="3.69" fill="#fff"/><rect x="0" y="14.76" width="48" height="3.69" fill="#B22234"/><rect x="0" y="18.45" width="48" height="3.69" fill="#fff"/><rect x="0" y="22.14" width="48" height="3.69" fill="#B22234"/><rect x="0" y="25.83" width="48" height="3.69" fill="#fff"/><rect x="0" y="29.52" width="48" height="3.69" fill="#B22234"/><rect x="0" y="33.21" width="48" height="3.69" fill="#fff"/><rect x="0" y="36.9" width="48" height="3.69" fill="#B22234"/><rect x="0" y="40.59" width="48" height="3.69" fill="#fff"/><rect x="0" y="44.28" width="48" height="3.72" fill="#B22234"/><rect x="0" y="0" width="19.2" height="25.83" fill="#3C3B6E"/><g fill="#fff"><circle cx="1.6" cy="1.3" r="0.7"/><circle cx="4.8" cy="1.3" r="0.7"/><circle cx="8" cy="1.3" r="0.7"/><circle cx="11.2" cy="1.3" r="0.7"/><circle cx="14.4" cy="1.3" r="0.7"/><circle cx="17.6" cy="1.3" r="0.7"/><circle cx="3.2" cy="3.9" r="0.7"/><circle cx="6.4" cy="3.9" r="0.7"/><circle cx="9.6" cy="3.9" r="0.7"/><circle cx="12.8" cy="3.9" r="0.7"/><circle cx="16" cy="3.9" r="0.7"/><circle cx="1.6" cy="6.5" r="0.7"/><circle cx="4.8" cy="6.5" r="0.7"/><circle cx="8" cy="6.5" r="0.7"/><circle cx="11.2" cy="6.5" r="0.7"/><circle cx="14.4" cy="6.5" r="0.7"/><circle cx="17.6" cy="6.5" r="0.7"/><circle cx="3.2" cy="9.1" r="0.7"/><circle cx="6.4" cy="9.1" r="0.7"/><circle cx="9.6" cy="9.1" r="0.7"/><circle cx="12.8" cy="9.1" r="0.7"/><circle cx="16" cy="9.1" r="0.7"/><circle cx="1.6" cy="11.7" r="0.7"/><circle cx="4.8" cy="11.7" r="0.7"/><circle cx="8" cy="11.7" r="0.7"/><circle cx="11.2" cy="11.7" r="0.7"/><circle cx="14.4" cy="11.7" r="0.7"/><circle cx="17.6" cy="11.7" r="0.7"/><circle cx="3.2" cy="14.3" r="0.7"/><circle cx="6.4" cy="14.3" r="0.7"/><circle cx="9.6" cy="14.3" r="0.7"/><circle cx="12.8" cy="14.3" r="0.7"/><circle cx="16" cy="14.3" r="0.7"/><circle cx="1.6" cy="16.9" r="0.7"/><circle cx="4.8" cy="16.9" r="0.7"/><circle cx="8" cy="16.9" r="0.7"/><circle cx="11.2" cy="16.9" r="0.7"/><circle cx="14.4" cy="16.9" r="0.7"/><circle cx="17.6" cy="16.9" r="0.7"/><circle cx="3.2" cy="19.5" r="0.7"/><circle cx="6.4" cy="19.5" r="0.7"/><circle cx="9.6" cy="19.5" r="0.7"/><circle cx="12.8" cy="19.5" r="0.7"/><circle cx="16" cy="19.5" r="0.7"/><circle cx="1.6" cy="22.1" r="0.7"/><circle cx="4.8" cy="22.1" r="0.7"/><circle cx="8" cy="22.1" r="0.7"/><circle cx="11.2" cy="22.1" r="0.7"/><circle cx="14.4" cy="22.1" r="0.7"/><circle cx="17.6" cy="22.1" r="0.7"/></g></svg>`;
 
-// === SVG ICONS ===
 const ICONS = {
     heart: `<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
     fire: `<svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>`,
     laugh: `<svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>`,
     poop: `<svg viewBox="0 0 24 24"><path d="M12 2C9.5 2 7.5 3.5 7.5 5.5c0 .8.3 1.5.8 2C6.5 8 5 9.5 5 11.5c0 1 .4 1.8 1 2.4C5 14.5 4 16 4 17.5c0 2 1.5 3.5 3.5 3.5h9c2 0 3.5-1.5 3.5-3.5 0-1.5-1-3-2.5-3.6.6-.6 1-1.4 1-2.4 0-2-1.5-3.5-3.3-4 .5-.5.8-1.2.8-2C17 3.5 15 2 12.5 2z"/></svg>`,
     skull: `<svg viewBox="0 0 24 24"><path d="M12 2C7.5 2 4 5.5 4 9.5c0 2.5 1.2 4.7 3 6V19c0 1 1 2 2 2h6c1 0 2-1 2-2v-3.5c1.8-1.3 3-3.5 3-6C20 5.5 16.5 2 12 2zM9 14c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm6 0c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm-3 3c-1.1 0-2-.9-2-2h4c0 1.1-.9 2-2 2z"/></svg>`,
-    down: `<svg viewBox="0 0 24 24"><path d="M19 15l-1.41-1.41L13 18.17V2h-2v16.17l-4.59-4.59L5 15l7 7 7-7z"/></svg>`
+    thumbDown: `<svg viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg>`
 };
 
 function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
@@ -199,52 +197,107 @@ function showCounter(el, value) {
     setTimeout(() => el.classList.remove('appear'), 400);
 }
 
-// === VIRAL BOOST (massive scale) ===
-function startViralBoost(postId, iteration = 0) {
-    if (activeViral.has(postId)) return;
-    activeViral.add(postId);
+// === GLOBAL REACTION TICK ===
+const REACTION_TYPES = ['likes', 'fires', 'laughs', 'dislikes', 'poops', 'skulls'];
+const TYPE_MULTIPLIERS = {
+    likes: 1.0,
+    fires: 0.55,
+    laughs: 0.30,
+    dislikes: 0.06,
+    poops: 0.012,
+    skulls: 0.006
+};
+const TYPE_LABELS = {
+    likes: 'лайки', fires: 'огоньки', laughs: 'смехи',
+    dislikes: 'дизлайки', poops: 'какашки', skulls: 'черепа'
+};
+const TYPE_CLASSES = {
+    likes: '.like', fires: '.fire', laughs: '.laugh',
+    dislikes: '.dislike', poops: '.poop', skulls: '.skull'
+};
 
+function getTickAmount(freshness, type) {
+    let baseMin, baseMax;
+    if (freshness > 0.8) { baseMin = 40; baseMax = 200; }
+    else if (freshness > 0.5) { baseMin = 15; baseMax = 80; }
+    else if (freshness > 0.2) { baseMin = 3; baseMax = 20; }
+    else { baseMin = 0; baseMax = 3; }
+
+    const base = getRandomInt(baseMin, baseMax);
+    const mult = TYPE_MULTIPLIERS[type];
+    let amount = Math.round(base * mult * (0.8 + Math.random() * 0.4));
+
+    if (Math.random() < 0.03) {
+        amount *= getRandomInt(3, 8);
+    }
+
+    return Math.max(0, amount);
+}
+
+function reactionTick() {
     const posts = loadPosts();
-    const post = posts.find(p => p.id === postId);
-    if (!post) { activeViral.delete(postId); return; }
+    const now = Date.now();
+    let changed = false;
+    let lastChangedPost = null;
+    let lastPostChanges = [];
 
-    const types = ['likes', 'fires', 'laughs', 'dislikes', 'poops', 'skulls'];
-    const r = Math.random();
-    let type;
-    if (r < 0.35) type = 'likes';
-    else if (r < 0.55) type = 'fires';
-    else if (r < 0.72) type = 'laughs';
-    else if (r < 0.82) type = 'dislikes';
-    else if (r < 0.92) type = 'poops';
-    else type = 'skulls';
+    posts.forEach(post => {
+        const age = now - post.id;
+        const freshness = Math.max(0, 1 - age / 300000);
+        if (freshness <= 0) return;
 
-    // 2-3 orders of magnitude bigger
-    const amount = getRandomInt(1000, 10000);
-    const oldVal = post[type];
-    post[type] += amount;
-    savePosts(posts);
+        let postChanges = [];
 
-    const card = document.querySelector(`.post[data-id="${postId}"]`);
-    if (card) {
-        const map = { likes: '.like', fires: '.fire', laughs: '.laugh', dislikes: '.dislike', poops: '.poop', skulls: '.skull' };
-        const btn = card.querySelector(map[type]);
-        if (btn) {
-            const countEl = btn.querySelector('.count');
-            if (countEl) {
-                if (oldVal === 0) showCounter(countEl, post[type]);
-                else animateCounter(countEl, oldVal, post[type], 350);
+        REACTION_TYPES.forEach(type => {
+            const amount = getTickAmount(freshness, type);
+            if (amount <= 0) return;
+            const oldVal = post[type];
+            post[type] += amount;
+            changed = true;
+
+            postChanges.push({ type, amount });
+
+            const card = document.querySelector(`.post[data-id="${post.id}"]`);
+            if (card) {
+                const btn = card.querySelector(TYPE_CLASSES[type]);
+                if (btn) {
+                    const countEl = btn.querySelector('.count');
+                    if (countEl) {
+                        if (oldVal === 0) showCounter(countEl, post[type]);
+                        else animateCounter(countEl, oldVal, post[type], 350);
+                    }
+                }
             }
-            bumpFly(btn, amount, type === 'dislikes');
+        });
+
+        if (postChanges.length > 0) {
+            if (!lastChangedPost || post.id > lastChangedPost.id) {
+                lastChangedPost = post;
+                lastPostChanges = postChanges;
+            }
+        }
+    });
+
+    if (changed) {
+        savePosts(posts);
+
+        if (lastChangedPost && lastPostChanges.length > 0) {
+            const maxChange = lastPostChanges.reduce((a, b) => a.amount > b.amount ? a : b);
+            const card = document.querySelector(`.post[data-id="${lastChangedPost.id}"]`);
+            if (card) {
+                const btn = card.querySelector(TYPE_CLASSES[maxChange.type]);
+                if (btn) {
+                    bumpFly(btn, maxChange.amount, maxChange.type === 'dislikes');
+                }
+            }
+
+            const verbsBot = ['накручивает','усиливает','подогревает','раскручивает','набивает','бомбит','заливает'];
+            const actors = ['Бот-ферма','Тролль-отряд','Алгоритм X','Патриот-бот','Фейковая армия','Deep State Bot','Мем-фабрика'];
+            showBotToast(`${getRandomElement(actors)} ${getRandomElement(verbsBot)} ${TYPE_LABELS[maxChange.type]} +${formatCount(maxChange.amount)}`);
         }
     }
 
-    iteration++;
-    const delay = 600 + iteration * 250 + getRandomInt(0, 500);
-    if (iteration < 35 && delay < 10000) {
-        setTimeout(() => startViralBoost(postId, iteration), delay);
-    } else {
-        activeViral.delete(postId);
-    }
+    setTimeout(reactionTick, getRandomInt(600, 1400));
 }
 
 function bumpFly(el, amount, isDown) {
@@ -323,7 +376,7 @@ function renderPosts() {
                         ${ICONS.skull}<span class="count ${post.skulls === 0 ? 'hidden' : ''}">${formatCount(post.skulls)}</span>
                     </button>
                     <button class="react-btn dislike ${dislikeCls}" onclick="handleReact(${post.id},'dislike')">
-                        ${ICONS.down}<span class="count ${post.dislikes === 0 ? 'hidden' : ''}">${formatCount(post.dislikes)}</span>
+                        ${ICONS.thumbDown}<span class="count ${post.dislikes === 0 ? 'hidden' : ''}">${formatCount(post.dislikes)}</span>
                     </button>
                 </div>
             </div>
@@ -389,40 +442,6 @@ function handleReact(postId, type) {
     }
 }
 
-// === Background bots (massive) ===
-function botActivity() {
-    let posts = loadPosts();
-    if (posts.length === 0) return;
-    const post = getRandomElement(posts);
-    const types = ['likes', 'fires', 'laughs', 'dislikes', 'poops', 'skulls'];
-    const type = getRandomElement(types);
-    const amount = getRandomInt(2000, 15000);
-    const oldVal = post[type];
-    post[type] += amount;
-    savePosts(posts);
-
-    const card = document.querySelector(`.post[data-id="${post.id}"]`);
-    if (card) {
-        const map = { likes: '.like', fires: '.fire', laughs: '.laugh', dislikes: '.dislike', poops: '.poop', skulls: '.skull' };
-        const btn = card.querySelector(map[type]);
-        if (btn) {
-            const countEl = btn.querySelector('.count');
-            if (countEl) {
-                if (oldVal === 0) showCounter(countEl, post[type]);
-                else animateCounter(countEl, oldVal, post[type], 350);
-            }
-            bumpFly(btn, amount, type === 'dislikes');
-        }
-    }
-
-    const verbsBot = ['накручивает','усиливает','подогревает','раскручивает','набивает','бомбит','заливает'];
-    const actors = ['Бот-ферма','Тролль-отряд','Алгоритм X','Патриот-бот','Фейковая армия','Deep State Bot','Мем-фабрика'];
-    const labels = { likes: 'лайки', dislikes: 'дизлайки', fires: 'огоньки', laughs: 'смехи', poops: 'какашки', skulls: 'черепа' };
-    showBotToast(`${getRandomElement(actors)} ${getRandomElement(verbsBot)} ${labels[type]} +${formatCount(amount)}`);
-
-    setTimeout(botActivity, getRandomInt(6000, 20000));
-}
-
 // === NUKE ===
 function nukeFeed() {
     const posts = loadPosts();
@@ -431,42 +450,44 @@ function nukeFeed() {
         return;
     }
 
+    const cards = Array.from(document.querySelectorAll('.post'));
+    cards.forEach(card => card.classList.add('post-shake'));
+
     const overlay = document.createElement('div');
     overlay.className = 'nuke-overlay';
-    overlay.innerHTML = `<div class="nuke-text">☢️ NUKED ☢️</div>`;
+    overlay.innerHTML = `
+        <div class="nuke-red"></div>
+        <div class="nuke-flash"></div>
+        <div class="nuke-text">☢️ NUKED ☢️</div>
+    `;
     document.body.appendChild(overlay);
-    void overlay.offsetWidth;
-    overlay.classList.add('anim');
-    document.body.classList.add('shake-body');
 
-    const cards = Array.from(document.querySelectorAll('.post'));
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            overlay.classList.add('active');
+        });
+    });
+
+    const burnStart = 1200;
     cards.forEach((card, i) => {
-        setTimeout(() => card.classList.add('post-burn'), 400 + i * 120);
+        setTimeout(() => {
+            card.classList.remove('post-shake');
+            card.classList.add('post-burn');
+        }, burnStart + i * 140);
     });
 
     setTimeout(() => {
         localStorage.removeItem(STORAGE_KEY);
-        activeViral.clear();
         overlay.remove();
-        document.body.classList.remove('shake-body');
         renderPosts();
         showBotToast(getRandomElement(nukeMsgs));
-    }, 400 + cards.length * 120 + 900);
+    }, burnStart + cards.length * 140 + 800);
 }
 
 // === INIT ===
 document.addEventListener('DOMContentLoaded', () => {
     renderPosts();
-
-    const posts = loadPosts();
-    posts.forEach(post => {
-        const age = Date.now() - post.id;
-        if (age < 120000 && !activeViral.has(post.id)) {
-            setTimeout(() => startViralBoost(post.id), getRandomInt(400, 1000));
-        }
-    });
-
-    setTimeout(botActivity, getRandomInt(5000, 12000));
+    setTimeout(reactionTick, getRandomInt(500, 1200));
 
     document.getElementById('thru-btn').addEventListener('click', () => {
         const posts = loadPosts();
@@ -474,7 +495,6 @@ document.addEventListener('DOMContentLoaded', () => {
         posts.push(newPost);
         savePosts(posts);
         renderPosts();
-        startViralBoost(newPost.id);
     });
 
     document.getElementById('nuke-btn').addEventListener('click', nukeFeed);
