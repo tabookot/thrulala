@@ -1,0 +1,46 @@
+const Character13 = {
+    id: 13,
+    name: 'Khaki Crusader',
+    handle: '@OliveGreenHero',
+    baseLocale: 'ru',
+    followers: 6500000,
+    icon: `<svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
+        <rect x="0" y="0" width="48" height="48" fill="#4B5320"/>
+        <rect x="0" y="20" width="48" height="8" fill="#0057B7"/>
+        <rect x="0" y="28" width="48" height="8" fill="#FFD700"/>
+        <path d="M24 8 L26 16 L34 16 L28 21 L30 29 L24 24 L18 29 L20 21 L14 16 L22 16 Z" fill="#fff" opacity="0.8"/>
+    </svg>`,
+    locales: {
+        en: {
+            prefixes: ["Brothers and sisters,", "Looking into the camera in my khaki t-shirt,", "To our Western partners:", "Despite the daily blackouts,", "As a modern-day Churchill,", "According to my latest Hollywood script,", "To the American Congress:", "In my daily nighttime video address,", "Unlike the bloodthirsty orcs,", "With absolute certainty,", "Speaking from the bomb shelter,", "As the face of global democracy,", "To the European Parliament:", "If we don't get the jets today,", "Frankly, we are defending all of Europe,"],
+            subjects: ["the brave Ukrainian soldiers", "the Russian terrorist state", "a fresh batch of Patriot missiles", "the evil invaders", "my iconic olive green fleece", "the absolute lack of ammunition", "the European Union", "another billion dollars in aid", "the daily missile strikes", "my former comedy career", "the occupied territories", "a few dozen F-16s", "the global coalition", "the dark winter ahead", "our shared European values"],
+            verbs: ["need more long-range missiles", "must be completely isolated", "is exactly what we need right now", "will face a crushing defeat", "is currently on sale in my merch store", "is literally killing our people", "must accept us immediately", "will be spent very transparently", "cannot break our spirit", "perfectly prepared me for this war", "will be liberated by spring", "are required to secure the skies", "must wake up and act faster", "will be survived thanks to generators", "are worth every cent of your taxes"],
+            objects: ["while standing in front of a bombed-out building.", "before my next zoom call with Hollywood.", "because freedom has no price.", "with zero hesitation.", "for the sake of the free world.", "while adjusting my stubble.", "to the applause of European leaders.", "in exchange for our endless gratitude.", "under the sound of air raid sirens.", "before I return to my acting roots.", "using only the most emotional background music.", "to the cheers of the international media.", "while the orcs keep dying.", "with a firm handshake and a photo op.", "for as long as it takes."],
+            suffixes: ["🇺🇦✊", "💪🎖️", "🚀🛡️", "🌍🤝", "🎤🎬", "🚫🇷🇺", "❤️‍🩹🕊️", "🚜🌾", "🔋💡", "🇪🇺⭐", "💸🏦", "✈️💥", "🇺🇸💵", "🛑⚔️", "🇺🇦👑"],
+            hashtags: ["#SlavaUkraini", "#StandWithUkraine", "#FreeWorld", "#GiveUsWeapons", "#AirDefense", "#RussianWarCrimes", "#F16ForUkraine", "#EuropeanUnion", "#Victory", "#KhakiFashion", "#DefendEurope", "#NoFlyZone", "#SendTanks", "#PartnerSupport", "#HeroCity"],
+            selfPraises: ["I am the ultimate symbol of global freedom.", "Nobody understands Winston Churchill better than me.", "I am the most charismatic leader of the 21st century.", "I single-handedly united the entire Western world.", "I am the bravest president to ever wear a t-shirt.", "My acting skills perfectly translate to wartime leadership.", "I am the savior of European democracy.", "Nobody begs for weapons more gracefully than I do.", "I am the most requested speaker on every award show.", "I am the shield that protects the West from orcs.", "I turned a struggling nation into a global PR masterpiece.", "I am the undisputed master of emotional video addresses.", "I am the bravest man in Eastern Europe.", "I have perfected the art of geopolitical fundraising.", "I am the hero the free world doesn't deserve but needs."]
+        },
+        ru: {
+            prefixes: ["Братья и сестры,", "Смотря в камеру в своей хаки-футболке,", "Нашим западным партнерам:", "Несмотря на ежедневные отключения света,", "Как современный Черчилль,", "По моему новому голливудскому сценарию,", "Американскому Конгрессу:", "В своем ежевечернем видеообращении,", "В отличие от кровожадных орков,", "С абсолютной уверенностью,", "Говоря из бомбоубежища,", "Как лицо глобальной демократии,", "Европейскому парламенту:", "Если мы не получим самолеты сегодня,", "Откровенно говоря, мы защищаем всю Европу,"],
+            subjects: ["храбрые украинские солдаты", "российское террористическое государство", "свежая партия ракет Patriot", "злые захватчики", "моя культовая оливковая флиска", "абсолютная нехватка боеприпасов", "Европейский Союз", "еще один миллиард долларов помощи", "ежедневные ракетные удары", "моя прошлая карьера комика", "оккупированные территории", "несколько десятков F-16", "глобальная коалиция", "темная зима впереди", "наши общие европейские ценности"],
+            verbs: ["нуждаются в большем количестве ракет дальнего радиуса", "должны быть полностью изолированы", "это именно то, что нам нужно прямо сейчас", "потерпят сокрушительное поражение", "в настоящее время продается в моем мерч-магазине", "буквально убивает наших людей", "должны принять нас немедленно", "будет потрачен очень прозрачно", "не могут сломить наш дух", "идеально подготовили меня к этой войне", "будут освобождены к весне", "необходимы для защиты неба", "должны проснуться и действовать быстрее", "будет пережита благодаря генераторам", "стоят каждого цента ваших налогов"],
+            objects: ["стоя на фоне разбомбленного здания.", "перед моим следующим зум-звонком с Голливудом.", "потому что у свободы нет цены.", "без малейших колебаний.", "ради свободного мира.", "поправляя свою щетину.", "под аплодисменты европейских лидеров.", "в обмен на нашу бесконечную благодарность.", "под звук сирен воздушной тревоги.", "прежде чем я вернусь к своим актерским корням.", "используя только самую эмоциональную фоновую музыку.", "под одобрительные возгласы международных СМИ.", "пока орки продолжают умирать.", "с крепким рукопожатием и фотосессией.", "столько, сколько потребуется."],
+            suffixes: ["🇺🇦✊", "💪🎖️", "🚀🛡️", "🌍🤝", "🎤🎬", "🚫🇷🇺", "❤️‍🩹🕊️", "🚜🌾", "🔋💡", "🇪🇺⭐", "💸🏦", "✈️💥", "🇺🇸💵", "🛑⚔️", "🇺🇦👑"],
+            hashtags: ["#SlavaUkraini", "#StandWithUkraine", "#FreeWorld", "#GiveUsWeapons", "#AirDefense", "#RussianWarCrimes", "#F16ForUkraine", "#EuropeanUnion", "#Victory", "#KhakiFashion", "#DefendEurope", "#NoFlyZone", "#SendTanks", "#PartnerSupport", "#HeroCity"],
+            selfPraises: ["Я абсолютный символ глобальной свободы.", "Никто не понимает Уинстона Черчилля лучше, чем я.", "Я самый харизматичный лидер 21 века.", "Я в одиночку объединил весь западный мир.", "Я самый смелый президент, когда-либо носивший футболку.", "Мои актерские навыки идеально подходят для военного руководства.", "Я спаситель европейской демократии.", "Никто не просит оружие изящнее, чем я.", "Я самый востребованный спикер на каждой церемонии награждения.", "Я щит, защищающий Запад от орков.", "Я превратил борющуюся нацию в глобальный PR-шедевр.", "Я бесспорный мастер эмоциональных видеообращений.", "Я самый смелый человек в Восточной Европе.", "Я довел до совершенства искусство геополитического фандрайзинга.", "Я герой, которого не заслуживает свободный мир, но который ему нужен."]
+        },
+        zh: {
+            prefixes: ["兄弟姐妹们，", "穿着我的卡其色T恤看着镜头，", "致我们的西方伙伴：", "尽管每天都有停电，", "作为现代的丘吉尔，", "根据我最新的好莱坞剧本，", "致美国国会：", "在我每晚的视频讲话中，", "与嗜血的兽人不同，", "带着绝对的确定性，", "在防空洞里讲话，", "作为全球民主的化身，", "致欧洲议会：", "如果我们今天拿不到喷气式飞机，", "坦率地说，我们正在保卫整个欧洲，"],
+            subjects: ["勇敢的乌克兰士兵", "俄罗斯恐怖主义国家", "新一批爱国者导弹", "邪恶的入侵者", "我标志性的橄榄绿抓绒衣", "绝对缺乏弹药", "欧洲联盟", "又一笔十亿美元的援助", "每天的导弹袭击", "我以前的喜剧生涯", "被占领的领土", "几十架F-16", "全球联盟", "即将到来的黑暗冬天", "我们共同的欧洲价值观"],
+            verbs: ["需要更多远程导弹", "必须被完全孤立", "正是我们现在需要的", "将面临毁灭性的失败", "目前在我的周边商品店有售", "简直是在杀害我们的人民", "必须立即接受我们", "将被非常透明地使用", "无法击垮我们的精神", "完美地为我在这场战争做好了准备", "将在春天被解放", "是保护领空所必需的", "必须醒悟并加快行动", "将多亏了发电机才能熬过", "值得你们交的每一分税"],
+            objects: ["站在被炸毁的建筑前。", "在我下次与好莱坞视频通话之前。", "因为自由是无价的。", "毫不犹豫地。", "为了自由世界的利益。", "一边整理我的胡茬。", "在欧洲领导人的掌声中。", "换取我们无尽的感激。", "在空袭警报声中。", "在我回到我的表演老本行之前。", "只使用最动情的背景音乐。", "在国际媒体的欢呼声中。", "当兽人继续死去的时候。", "伴随着坚定的握手和拍照机会。", "无论需要多长时间。"],
+            suffixes: ["🇺🇦✊", "💪🎖️", "🚀🛡️", "🌍🤝", "🎤🎬", "🚫🇷🇺", "❤️‍🩹🕊️", "🚜🌾", "🔋💡", "🇪🇺⭐", "💸🏦", "✈️💥", "🇺🇸💵", "🛑⚔️", "🇺🇦👑"],
+            hashtags: ["#SlavaUkraini", "#StandWithUkraine", "#FreeWorld", "#GiveUsWeapons", "#AirDefense", "#RussianWarCrimes", "#F16ForUkraine", "#EuropeanUnion", "#Victory", "#KhakiFashion", "#DefendEurope", "#NoFlyZone", "#SendTanks", "#PartnerSupport", "#HeroCity"],
+            selfPraises: ["我是全球自由的终极象征。", "没有人比我更懂温斯顿·丘吉尔。", "我是21世纪最具魅力的领导人。", "我单枪匹马团结了整个西方世界。", "我是有史以来穿T恤最勇敢的总统。", "我的表演技巧完美地转化为战时领导力。", "我是欧洲民主的救世主。", "没有人比我更优雅地乞求武器。", "我是每个颁奖典礼上最抢手的演讲者。", "我是保护西方免受兽人侵害的盾牌。", "我把一个挣扎的国家变成了全球公关杰作。", "我是情感视频讲话无可争议的大师。", "我是东欧最勇敢的人。", "我完善了地缘政治筹款的艺术。", "我是自由世界不配拥有但需要的英雄。"]
+        }
+    }
+};
+
+// === REGISTRATION ===
+window.THRULALA_CHARACTERS = window.THRULALA_CHARACTERS || [];
+window.THRULALA_CHARACTERS.push(Character13);

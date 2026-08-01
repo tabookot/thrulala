@@ -1,0 +1,50 @@
+// === CHARACTER DATA: 9 ===
+// Описание персонажа: Сатирический прототип - ультраправый националист, антиисламский активист, защитник "голландских ценностей", обесцвеченный блондин.
+
+const Character9 = {
+    id: 9,
+    name: 'Tulip Patriot',
+    handle: '@DutchLionDefender',
+    baseLocale: 'en',
+    followers: 1100000,
+    icon: `<svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
+        <rect x="0" y="0" width="48" height="48" fill="#fff"/>
+        <rect x="0" y="0" width="48" height="16" fill="#AE1C28"/>
+        <rect x="0" y="32" width="48" height="16" fill="#21468B"/>
+        <path d="M24 14 V34 M14 18 H34" stroke="#FF8C00" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <circle cx="24" cy="18" r="6" fill="#FF8C00" opacity="0.8"/>
+    </svg>`,
+    locales: {
+        en: {
+            prefixes: ["Let me be brutally honest,", "For decades I have warned that", "The Dutch people are sick and tired of", "Despite the left-wing media's tears,", "To the elites in The Hague:", "If you love the Netherlands,", "Looking at the streets of Amsterdam,", "As the only real patriot,", "Make no mistake,", "Unlike the cowardly establishment,", "With my bleached hair blowing in the wind,", "Under constant death threats, I still say", "According to our beautiful Dutch constitution,", "To the massive queue of fake refugees:", "If we don't act immediately,", "In the name of freedom,"],
+            subjects: ["the tsunami of illegal immigrants", "the violent street terrorists", "the unelected eurocrats in Brussels", "the archaic hate speech laws", "the spread of halal food in schools", "the completely broken asylum system", "the leftist cultural marxists", "the massive funding for foreign mosques", "the Islamic invasion of Europe", "the violent Moroccan youth gangs", "the anti-Dutch prime minister", "our dying Judeo-Christian culture", "the treacherous coalition of losers", "the head-to-toe black beekeeper suits", "the theft of our national identity", "the cowardly judges in parliament"],
+            verbs: ["must be stopped at the border", "are destroying our beautiful country", "will face a total ban", "needs to be permanently defunded", "should be sent back immediately", "are literally spitting on our values", "will pay for their betrayal", "is a clear threat to our women", "deserves to be deported", "will finally be put first", "are turning our cities into warzones", "must be stripped of their passports", "is costing us billions of euros", "will be eradicated by the Patriots", "is causing a demographic catastrophe", "will be replaced with pure Dutch culture"],
+            objects: ["before it's too late.", "while the police do absolutely nothing.", "with zero tolerance for radicalism.", "for the sake of our grandchildren.", "because we are full.", "under the dome of The Hague.", "without apologizing to anyone.", "with the power of the silent majority.", "to protect our gay rights from extremists.", "before Sharia law takes over.", "with a strict zero-immigration policy.", "while the fake news media panics.", "for the glory of the Dutch lion.", "despite the globalist tears.", "to keep the Netherlands for the Dutch.", "with a massive victory for freedom."],
+            suffixes: ["🦁🇳🇱", "🚫🕌", "💪✊", "🔥🇳🇱", "😠📉", "🇳🇱🦅", "🚫🛶", "🚫🧕", "💯", "🗣️📜", "🇳🇱👑", "🚫🇪🇺", "🇳🇱🤝🇺🇸", "✝️🛡️", "🇳🇱🌷", "🛑🛂"],
+            hashtags: ["#StopIslamisation", "#DutchFirst", "#PVV", "#DefendEurope", "#NoMoreRefugees", "#PatriotSpring", "#HagueElites", "#Nexit", "#FreeSpeechForAll", "#DeportTheCriminals", "#SaveOurCulture", "#TheNetherlandsForTheDutch", "#AntiGlobalist", "#PatriotMajority", "#BanTheBurqa", "#HouseOfRepresentatives"],
+            selfPraises: ["I am the only one who dares to speak the truth.", "I am the defender of the Dutch people.", "I am the ultimate protector of our freedom.", "Nobody has fought harder for our culture than me.", "I am the savior of the Netherlands.", "I am the only patriot in the entire parliament.", "I am the voice of the silenced majority.", "I am the most courageous politician in Europe.", "I have sacrificed my life for this country.", "I am the undisputed champion of free speech.", "I am the nightmare of the left-wing elites.", "I am the strongest leader the Dutch ever had.", "I am the only one who truly understands the threat.", "I am the shield that protects our borders.", "I am the bravest man in The Hague.", "I am the inevitable future of this nation."]
+        },
+        ru: {
+            prefixes: ["Позвольте мне быть предельно откровенным,", "Я десятилетиями предупреждал, что", "Голландцы смертельно устали от", "Несмотря на слезы леворадикальных СМИ,", "Элитариям в Гааге говорю:", "Если вы любите Нидерланды,", "Глядя на улицы Амстердама,", "Как единственный настоящий патриот,", "Не ошибайтесь,", "В отличие от трусливого истеблишмента,", "С моими обесцвеченными волосами, развевающимися на ветру,", "Под постоянными угрозами смерти, я все равно говорю, что", "Согласно нашей прекрасной голландской конституции,", "Огромной очереди фейковых беженцев говорю:", "Если мы не начнем действовать немедленно,", "Во имя свободы,"],
+            subjects: ["цунами нелегальных иммигрантов", "жестокие уличные террористы", "неизбранные еврократы в Брюсселе", "устаревшие законы о разжигании ненависти", "распространение халяльной еды в школах", "абсолютно сломанная система убежища", "левые культурные марксисты", "массовое финансирование иностранных мечетей", "исламское вторжение в Европу", "жестокие молодежные банды марокканцев", "антиголландский премьер-министр", "наша умирающая иудео-христианская культура", "предательская коалиция неудачников", "черные костюмы пчеловода с ног до головы", "кража нашей национальной идентичности", "трусливые судьи в парламенте"],
+            verbs: ["должны быть остановлены на границе", "уничтожают нашу прекрасную страну", "столкнутся с полным запретом", "необходимо навсегда лишить финансирования", "должны быть немедленно депортированы", "буквально плюют на наши ценности", "заплатят за свое предательство", "представляют явную угрозу для наших женщин", "заслуживает депортации", "наконец-то будет в приоритете", "превращают наши города в зоны военных действий", "должны быть лишены своих паспортов", "обходится нам в миллиарды евро", "будут искоренены Патриотами", "ведет к демографической катастрофе", "будет заменено чистой голландской культурой"],
+            objects: ["пока не стало слишком поздно.", "пока полиция абсолютно ничего не делает.", "с нулевой терпимостью к радикализму.", "ради наших внуков.", "потому что больше места нет.", "под куполом Гааги.", "ни перед кем не извиняясь.", "с силой молчаливого большинства.", "чтобы защитить права геев от экстремистов.", "до того, как возьмет верх закон шариата.", "с помощью строгой политики нулевой иммиграции.", "пока фейковые новости паникуют.", "во славу голландского льва.", "несмотря на слезы глобалистов.", "чтобы сохранить Нидерланды для голландцев.", "с огромной победой свободы."],
+            suffixes: ["🦁🇳🇱", "🚫🕌", "💪✊", "🔥🇳🇱", "😠📉", "🇳🇱🦅", "🚫🛶", "🚫🧕", "💯", "🗣️📜", "🇳🇱👑", "🚫🇪🇺", "🇳🇱🤝🇺🇸", "✝️🛡️", "🇳🇱🌷", "🛑🛂"],
+            hashtags: ["#StopIslamisation", "#DutchFirst", "#PVV", "#DefendEurope", "#NoMoreRefugees", "#PatriotSpring", "#HagueElites", "#Nexit", "#FreeSpeechForAll", "#DeportTheCriminals", "#SaveOurCulture", "#TheNetherlandsForTheDutch", "#AntiGlobalist", "#PatriotMajority", "#BanTheBurqa", "#HouseOfRepresentatives"],
+            selfPraises: ["Я единственный, кто осмеливается говорить правду.", "Я защитник голландского народа.", "Я абсолютный защитник нашей свободы.", "Никто не боролся за нашу культуру сильнее, чем я.", "Я спаситель Нидерландов.", "Я единственный патриот во всем парламенте.", "Я голос заглушенного большинства.", "Я самый смелый политик в Европе.", "Я пожертвовал своей жизнью ради этой страны.", "Я бесспорный чемпион свободы слова.", "Я кошмар для левых элит.", "Я самый сильный лидер, который когда-либо был у голландцев.", "Я единственный, кто действительно понимает угрозу.", "Я щит, защищающий наши границы.", "Я самый храбрый человек в Гааге.", "Я неизбежное будущее этой нации."]
+        },
+        zh: {
+            prefixes: ["让我非常直言不讳地说，", "几十年来我一直警告说", "荷兰人民已经厌倦了", "尽管左翼媒体在哭泣，", "对海牙的精英们说：", "如果你爱荷兰，", "看着阿姆斯特丹的街道，", "作为唯一真正的爱国者，", "别搞错了，", "与怯懦的建制派不同，", "伴随我漂白的头发在风中飘扬，", "在持续的死亡威胁下，我仍然说", "根据我们美丽的荷兰宪法，", "对排成长队的假难民说：", "如果我们不立即行动，", "以自由的名义，"],
+            subjects: ["非法移民的海啸", "暴力的街头恐怖分子", "布鲁塞尔未经选举的欧洲官僚", "过时的仇恨言论法", "学校里清真食品的传播", "完全崩溃的庇护系统", "左翼文化马克思主义者", "对外国清真寺的大规模资助", "伊斯兰对欧洲的入侵", "暴力的摩洛哥青年帮派", "反荷兰首相", "我们垂死的犹太-基督教文化", "由失败者组成的背叛联盟", "从头到脚的黑色养蜂人套装", "我们民族认同的盗窃", "议会中怯懦的法官"],
+            verbs: ["必须在边境被阻止", "正在摧毁我们美丽的国家", "将面临全面禁令", "需要被永久切断资金", "应该立即被遣返", "简直是在向我们的价值观吐口水", "将为他们的背叛付出代价", "是对我们妇女的明显威胁", "理应被驱逐出境", "终于将被放在首位", "正在把我们的城市变成战区", "必须被剥夺护照", "让我们花费了数十亿欧元", "将被爱国者根除", "正在造成人口结构的灾难", "将被纯粹的荷兰文化取代"],
+            objects: ["在为时已晚之前。", "而警察却什么都不做。", "对激进主义零容忍。", "为了我们的孙辈。", "因为我们已经满了。", "在海牙的穹顶之下。", "不向任何人道歉。", "借助沉默大多数的力量。", "保护我们的同性恋权利免受极端分子侵害。", "在伊斯兰教法接管之前。", "采取严格的零移民政策。", "而假新闻媒体在恐慌。", "为了荷兰狮子的荣耀。", "尽管全球主义者在流泪。", "让荷兰属于荷兰人。", "迎来自由的巨大胜利。"],
+            suffixes: ["🦁🇳🇱", "🚫🕌", "💪✊", "🔥🇳🇱", "😠📉", "🇳🇱🦅", "🚫🛶", "🚫🧕", "💯", "🗣️📜", "🇳🇱👑", "🚫🇪🇺", "🇳🇱🤝🇺🇸", "✝️🛡️", "🇳🇱🌷", "🛑🛂"],
+            hashtags: ["#StopIslamisation", "#DutchFirst", "#PVV", "#DefendEurope", "#NoMoreRefugees", "#PatriotSpring", "#HagueElites", "#Nexit", "#FreeSpeechForAll", "#DeportTheCriminals", "#SaveOurCulture", "#TheNetherlandsForTheDutch", "#AntiGlobalist", "#PatriotMajority", "#BanTheBurqa", "#HouseOfRepresentatives"],
+            selfPraises: ["我是唯一敢说真话的人。", "我是荷兰人民的捍卫者。", "我是我们自由的终极保护者。", "没有人比我更努力地为我们的文化而战。", "我是荷兰的救世主。", "我是整个议会中唯一的爱国者。", "我是沉默的大多数的声音。", "我是欧洲最勇敢的政治家。", "我为这个国家牺牲了我的生命。", "我是无争议的言论自由冠军。", "我是左翼精英的噩梦。", "我是荷兰人曾有过的最强有力的领导人。", "我是唯一真正了解威胁的人。", "我是保护我们边境的盾牌。", "我是海牙最勇敢的人。", "我是这个国家不可避免的未来。"]
+        }
+    }
+};
+
+// === REGISTRATION ===
+window.THRULALA_CHARACTERS = window.THRULALA_CHARACTERS || [];
+window.THRULALA_CHARACTERS.push(Character9);

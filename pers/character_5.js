@@ -1,0 +1,52 @@
+// === CHARACTER DATA: 5 ===
+// Описание персонажа: Сатирический прототип ультраконсервативного политика (Марджори Тейлор Грин). Упоротая MAGA-мама, охотница за педофилами, эксперт по космическим лазерам и враг Глубинного государства.
+
+const Character5 = {
+    id: 5,
+    name: 'UltraMAGA_Lioness',
+    handle: '@UltraMAGA_Lioness',
+    baseLocale: 'en',
+    followers: 3200000,
+    icon: `<svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
+        <rect x="0" y="0" width="48" height="24" fill="#BF0A30"/>
+        <rect x="0" y="24" width="48" height="24" fill="#fff"/>
+        <rect x="0" y="0" width="20" height="24" fill="#002868"/>
+        <text x="10" y="18" font-size="12" font-family="sans-serif" font-weight="bold" fill="#fff" text-anchor="middle">M</text>
+        <text x="34" y="18" font-size="12" font-family="sans-serif" font-weight="bold" fill="#fff" text-anchor="middle">A</text>
+        <text x="10" y="42" font-size="12" font-family="sans-serif" font-weight="bold" fill="#BF0A30" text-anchor="middle">G</text>
+        <text x="34" y="42" font-size="12" font-family="sans-serif" font-weight="bold" fill="#BF0A30" text-anchor="middle">A</text>
+    </svg>`,
+    locales: {
+        en: {
+            prefixes: ["Wake up, sheeple!", "The Fake News media won't report this, but", "As a proud Christian nationalist,", "The Deep State is panicking because", "President Trump's enemies are trying to destroy America, so", "We the People know that", "If you don't believe me, just look at how", "Jewish space lasers are real and", "The Democrat pedophile cabal is plotting, therefore", "I am officially demanding an investigation into how", "God told me directly that", "The radical Left is destroying our borders, while", "Stop being a RINO and admit that", "Real Patriots understand that", "Under Biden's communist regime,"],
+            subjects: ["the fake weather machines", "Hillary Clinton's deleted emails", "the gay frogs in our water supply", "the liberal media's mind-control rays", "the totally stolen election", "the traitorous RINOs in the Freedom Caucus", "the secret Q-codes from JFK Jr.", "the crisis actors in the latest tragedy", "the globalist elites eating babies", "the dangerous vaccine microchips", "the illegal ballot harvesting mules", "the transgender aliens in our schools", "the Soros-funded prosecutors", "the Pelosi crime family", "the devil-worshipping Hollywood celebrities"],
+            verbs: ["are secretly controlling", "must be immediately arrested for", "are aggressively turning", "have completely stolen", "are plotting against", "are aiding and abetting", "are decoding right now", "were faked by", "are harvesting adrenochrome from", "are injecting into", "are stuffing ballot boxes for", "are grooming our children in", "are releasing violent criminals into", "are destroying the Constitution with", "are sacrificing babies to"],
+            objects: ["our precious bodily fluids.", "treason against the United States.", "our innocent children into Marxists.", "the rightful presidency of Donald J. Trump.", "our great American patriots.", "the Deep State cabal.", "the latest Q drop.", "George Soros's super PAC.", "a secret basement in a pizzeria.", "our arms without our consent.", "the Socialist Democrat agenda.", "the local public library.", "our quiet suburban neighborhoods.", "their demonic gun control bills.", "the owl statue at Bohemian Grove."],
+            suffixes: ["Trust the plan!", "Where we go one, we go all!", "Make America Great Again!", "Save the children!", "Lock her up!", "The storm is upon us!", "Do your own research!", "Jesus is Lord!", "Second Amendment forever!", "Impeach Biden!", "Drain the swamp!", "Fauci lied, people died!", "No justice, no peace!", "America First!", "We will not be silenced!"],
+            hashtags: ["#MAGA", "#WWG1WGA", "#QAnon", "#UltraMAGA", "#StopTheSteal", "#FJB", "#SaveTheChildren", "#FakeNews", "#DrainTheSwamp", "#Patriot", "#ChristianNationalism", "#TrumpWon", "#BuildTheWall", "#BanTheDeepState", "#J6PoliticalPrisoners"],
+            selfPraises: ["I am the only one brave enough to tell the truth.", "God appointed me to save this nation.", "I am the ultimate Trump loyalist.", "The radical Left is terrified of my power.", "I have an IQ of 150 when it comes to exposing globalists.", "I am a proud Ultra-MAGA warrior.", "No one fights harder for real Americans than me.", "I am the true voice of the Freedom Caucus.", "I am literally saving children from the deep state.", "Jesus Christ himself guides my tweets.", "I am the most persecuted patriot in Congress.", "The deep state fears my space laser research.", "I am the lioness of the Republican party.", "I will never bend to the RINO establishment.", "I am the definition of a true American patriot."]
+        },
+        ru: {
+            prefixes: ["Проснитесь, бараны!", "Фейковые новости не расскажут вам об этом, но", "Как гордый христианский националист,", "Глубинное государство в панике, потому что", "Враги президента Трампа пытаются разрушить Америку, поэтому", "Мы, народ, знаем, что", "Если вы мне не верите, просто посмотрите, как", "Космические лазеры Ротшильдов реальны и", "Демократическая педофильская клика строит козни, следовательно,", "Я официально требую расследования того, как", "Бог сказал мне напрямую, что", "Радикальные левые разрушают наши границы, пока", "Хватит быть СИНО (республиканцем только по имени) и признай, что", "Настоящие Патриоты понимают, что", "При коммунистическом режиме Байдена,"],
+            subjects: ["фальшивые машины погоды", "удаленные письма Хиллари Клинтон", "гомо-лягушки в нашем водоснабжении", "лучи контроля разума либеральных СМИ", "полностью украденные выборы", "предательские СИНО в Кокусе Свободы", "секретные Q-коды от JFK-младшего", "кризисные актеры в последней трагедии", "глобалистские элиты, поедающие младенцев", "опасные микрочипы в вакцинах", "нелегальные мулы, собирающие бюллетени", "транссексуальные пришельцы в наших школах", "финансируемые Соросом прокуроры", "криминальное семейство Пелоси", "поклоняющиеся дьяволу голливудские знаменитости"],
+            verbs: ["тайно контролируют", "должны быть немедленно арестованы за", "агрессивно превращают", "полностью украли", "плетут заговор против", "оказывают помощь и содействие", "прямо сейчас расшифровывают", "были подделаны", "собирают адренохром из", "вводят в", "набивают урны для голосования за", "громят наших детей в", "выпускают жестоких преступников в", "разрушают Конституцию с помощью", "приносят в жертву младенцев"],
+            objects: ["наши драгоценные телесные жидкости.", "государственную измену Соединенным Штатам.", "наших невинных детей в марксистов.", "законное президентство Дональда Дж. Трампа.", "наших великих американских патриотов.", "клику Глубинного государства.", "последний дроп от Q.", "супер-ПАК Джорджа Сороса.", "секретный подвал в пиццерии.", "наши руки без нашего согласия.", "социалистическую повестку Демократов.", "местную публичную библиотеку.", "наши тихие пригородные районы.", "свои демонические законопроекты о контроле над оружием.", "статую совы в Богемской роще."],
+            suffixes: ["Доверяйте плану!", "Куда идем мы, идем все!", "Сделаем Америку Великой Снова!", "Спасите детей!", "Посадите её!", "Шторм уже здесь!", "Проведите собственное расследование!", "Иисус — Господь!", "Вторая поправка навсегда!", "Импичмент Байдену!", "Осушите болото!", "Фаучи лгал, люди умирали!", "Нет справедливости — нет мира!", "Америка прежде всего!", "Нас не заставят замолчать!"],
+            hashtags: ["#MAGA", "#WWG1WGA", "#QAnon", "#UltraMAGA", "#StopTheSteal", "#FJB", "#SaveTheChildren", "#FakeNews", "#DrainTheSwamp", "#Patriot", "#ChristianNationalism", "#TrumpWon", "#BuildTheWall", "#BanTheDeepState", "#J6PoliticalPrisoners"],
+            selfPraises: ["Только я достаточно смела, чтобы говорить правду.", "Бог назначил меня спасти эту нацию.", "Я абсолютный лоялист Трампа.", "Радикальные левые в ужасе от моей силы.", "У меня IQ 150, когда дело доходит до разоблачения глобалистов.", "Я гордая воительница Ультра-MAGA.", "Никто не сражается за настоящих американцев упорнее меня.", "Я истинный голос Кокуса Свободы.", "Я буквально спасаю детей от глубинного государства.", "Сам Иисус Христос направляет мои твиты.", "Я самый преследуемый патриот в Конгрессе.", "Глубинное государство боится моих исследований космических лазеров.", "Я львица Республиканской партии.", "Я никогда не согнусь перед истеблишментом СИНО.", "Я само определение истинного американского патриота."]
+        },
+        zh: {
+            prefixes: ["醒醒吧，绵羊们！", "假新闻媒体不会报道这个，但是", "作为一个骄傲的基督教民族主义者，", "深层政府正在恐慌，因为", "特朗普总统的敌人正试图摧毁美国，所以", "我们人民知道", "如果你不相信我，看看如何", "罗斯柴尔德的太空激光是真的，并且", "民主党恋童癖集团正在密谋，因此", "我正式要求调查如何", "上帝直接告诉我", "激进左派正在摧毁我们的边界，而", "别再做个RINO（名义上的共和党人）了，承认吧", "真正的爱国者明白", "在拜登的共产主义政权下，"],
+            subjects: ["假天气机器", "希拉里·克林顿被删除的电子邮件", "我们供水系统里的同性恋青蛙", "自由派媒体的精神控制射线", "被完全窃取的选举", "自由党团中叛国的RINO", "小肯尼迪的秘密Q代码", "最新悲剧中的危机演员", "吃婴儿的全球主义精英", "危险的疫苗微芯片", "非法收集选票的骡子", "我们学校里的变性外星人", "索罗斯资助的检察官", "佩洛西犯罪家族", "崇拜魔鬼的好莱坞名人"],
+            verbs: ["正在秘密控制", "必须立即因...被逮捕", "正在咄咄逼人地把...变成", "已经完全偷走了", "正在密谋对付", "正在协助和教唆", "正在破译", "是由...伪造的", "正在从...采集肾上腺素红", "正在注射进", "正在为...塞满投票箱", "正在...里给我们的孩子洗脑", "正在将暴力罪犯释放到", "正在用...摧毁宪法", "正在向...献祭婴儿"],
+            objects: ["我们宝贵的体液。", "叛逆美利坚合众国。", "我们无辜的孩子变成马克思主义者。", "唐纳德·J·特朗普的合法总统职位。", "我们伟大的美国爱国者。", "深层政府集团。", "最新的Q滴。", "乔治·索罗斯的超级政治行动委员会。", "披萨店里的秘密地下室。", "未经我们同意的我们的手臂。", "社会主义民主党议程。", "当地的公共图书馆。", "我们安静的郊区。", "他们恶魔般的枪支管制法案。", "波西米亚格罗夫的猫头鹰雕像。"],
+            suffixes: ["相信计划！", "我们去哪，我们去所有！", "让美国再次伟大！", "拯救孩子们！", "把她关起来！", "风暴降临了！", "做你自己的研究！", "耶稣是主！", "第二修正案万岁！", "弹劾拜登！", "抽干沼泽！", "福奇撒谎，人民死亡！", "没有正义，就没有和平！", "美国优先！", "我们不会被噤声！"],
+            hashtags: ["#MAGA", "#WWG1WGA", "#QAnon", "#UltraMAGA", "#StopTheSteal", "#FJB", "#SaveTheChildren", "#FakeNews", "#DrainTheSwamp", "#Patriot", "#ChristianNationalism", "#TrumpWon", "#BuildTheWall", "#BanTheDeepState", "#J6PoliticalPrisoners"],
+            selfPraises: ["我是唯一一个有勇气说出真相的人。", "上帝任命我来拯救这个国家。", "我是终极特朗普忠诚者。", "激进左派害怕我的力量。", "在揭露全球主义者方面，我的智商有150。", "我是一个骄傲的超级MAGA战士。", "没有人比我更努力地为真正的美国人战斗。", "我是自由党团的真正声音。", "我简直是在从深层政府手中拯救孩子。", "耶稣基督亲自指导我的推文。", "我是国会中最受迫害的爱国者。", "深层政府害怕我的太空激光研究。", "我是共和党的雌狮。", "我永远不会向RINO建制派屈服。", "我是真正美国爱国者的化身。"]
+        }
+    }
+};
+
+// === REGISTRATION ===
+window.THRULALA_CHARACTERS = window.THRULALA_CHARACTERS || [];
+window.THRULALA_CHARACTERS.push(Character5);

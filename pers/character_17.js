@@ -1,0 +1,47 @@
+const Character17 = {
+    id: 17,
+    name: 'Climate Fury Kid',
+    handle: '@EcoAvenger',
+    baseLocale: 'en',
+    followers: 4500000,
+    icon: `<svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
+        <rect x="0" y="0" width="48" height="48" fill="#006400"/>
+        <circle cx="24" cy="24" r="14" fill="#87CEEB"/>
+        <path d="M16 28 Q24 34 32 28" stroke="#000" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M16 18 L22 22 M32 18 L26 22" stroke="#000" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M10 14 L14 8 L18 14 L14 18 Z" fill="#FF8C00"/>
+    </svg>`,
+    locales: {
+        en: {
+            prefixes: ["How dare you,", "Listen to the science,", "Blah blah blah,", "Standing outside the parliament,", "Sailing across the Atlantic,", "According to the latest IPCC report,", "Unite behind the science,", "To the world leaders:", "As a child of the fossil fuel era,", "Looking at the rising sea levels,", "Despite the politicians' empty promises,", "With my angry face on,", "If we don't act now,", "To the old men in suits:", "Speaking for the voiceless polar bears,", "During my weekly climate strike,"],
+            subjects: ["the carbon emissions", "the greedy fossil fuel CEOs", "my school strike sign", "the empty promises of COP27", "the melting polar ice caps", "the complete lack of action", "the UN Climate Summit", "the capitalist death machine", "the dying coral reefs", "the world leaders flying in private jets", "the rising global temperatures", "the stolen childhood", "the psychotic economics", "the eco-anxiety of my generation", "the brave activists gluing themselves to roads", "the total destruction of biodiversity"],
+            verbs: ["are literally killing us", "must be put on trial", "reads 'School Strike for Climate'", "is just blah blah blah", "are collapsing faster than ever", "is an absolute catastrophe", "is a giant PR stunt", "is destroying our future", "will be dead in a decade", "should be grounded immediately", "is the fault of the boomers", "requires a total system overthrow", "is based on fairy tales", "is totally justified", "are the real heroes", "is happening right now"],
+            objects: ["while sailing on a solar-powered yacht.", "with zero carbon footprint.", "before the oceans boil over.", "to the complete indifference of adults.", "with my signature angry glare.", "because there is no planet B.", "while skipping school on Fridays.", "against the evil fossil fuel lobby.", "during my dramatic UN speech.", "without taking a single airplane.", "for the sake of the unborn generations.", "while the polar bears drown.", "in front of the Swedish parliament.", "because science is not an opinion.", "with zero respect for the establishment.", "to stop the sixth mass extinction."],
+            suffixes: ["🌍🔥", "😡📢", "🛶🌊", "🚫🏭", "🌡️📈", "🐻‍❄️🧊", "🌿✊", "🤡🎤", "📉🌍", "♻️🌱", "🌅🚫", "❤️‍🔥", "🛑🛢️", "✊🌊", "🔥💰", "👁️👄👁️"],
+            hashtags: ["#FridaysForFuture", "#HowDareYou", "#ClimateStrike", "#UniteBehindTheScience", "#NoPlanetB", "#BlahBlahBlah", "#ListenToTheScience", "#EcoAnxiety", "#SystemChangeNotClimateChange", "#StopFossilFuels", "#YouthStrike", "#ClimateEmergency", "#EndCapitalism", "#SaveTheArctic", "#NetZeroNow", "#GretaEffect"],
+            selfPraises: ["I am the voice of the voiceless generation.", "Nobody speaks truth to power like I do.", "I am the ultimate climate prophet.", "My angry stare can lower carbon emissions.", "I single-handedly started a global movement.", "I am the savior of the polar bears.", "I am the most famous autistic activist alive.", "I sailed across an ocean to save the planet.", "I am the nightmare of the fossil fuel CEOs.", "Nobody understands the IPCC reports like me.", "I am the ultimate eco-warrior.", "I am the moral compass of humanity.", "I bravely skipped school to save your future.", "I am the undisputed queen of the climate strike.", "I am the only one who sees the emergency clearly.", "I am the greatest environmentalist in history."]
+        },
+        ru: {
+            prefixes: ["Как вы смеете,", "Слушайте науку,", "Бла-бла-бла,", "Стоя у здания парламента,", "Переплыв Атлантику,", "Согласно последнему докладу IPCC,", "Объединимся за наукой,", "Лидерам мира говорю:", "Как дитя эпохи ископаемого топлива,", "Глядя на поднимающийся уровень моря,", "Несмотря на пустые обещания политиков,", "Со своим злым лицом,", "Если мы не начнем действовать сейчас,", "Старикам в костюмах говорю:", "Выступая от имени безмолвных белых медведей,", "Во время моей еженедельной забастовки за климат,"],
+            subjects: ["выбросы углекислого газа", "жадные CEO ископаемого топлива", "мой плакат школьной забастовки", "пустые обещания COP27", "тающие полярные ледяные шапки", "полное отсутствие действий", "Саммит ООН по климату", "капиталистическая машина смерти", "гибнущие коралловые рифы", "лидеры мира, летающие на частных джетах", "растущая глобальная температура", "украденное детство", "психопатическая экономика", "эко-тревожность моего поколения", "храбрые активисты, приклеивающие себя к дорогам", "полное уничтожение биоразнообразия"],
+            verbs: ["буквально убивают нас", "должны быть преданы суду", "гласит 'Школьная забастовка за климат'", "это просто бла-бла-бла", "рушатся быстрее, чем когда-либо", "является абсолютной катастрофой", "это гигантская PR-акция", "уничтожает наше будущее", "будут мертвы через десятилетие", "следует немедленно приземлить", "это вина бумеров", "требует полного свержения системы", "основана на сказках", "абсолютно оправдана", "это настоящие герои", "происходит прямо сейчас"],
+            objects: ["путешествуя на яхте на солнечных батареях.", "с нулевым углеродным следом.", "пока океаны не закипели.", "при полном безразличии взрослых.", "с моей фирменной злой ухмылкой.", "потому что запасной планеты нет.", "пропуская школу по пятницам.", "против злого лобби ископаемого топлива.", "во время моей драматичной речи в ООН.", "не воспользовавшись ни одним самолетом.", "ради нерожденных поколений.", "пока белые медведи тонут.", "перед шведским парламентом.", "потому что наука — это не мнение.", "с нулевым уважением к истеблишменту.", "чтобы остановить шестое массовое вымирание."],
+            suffixes: ["🌍🔥", "😡📢", "🛶🌊", "🚫🏭", "🌡️📈", "🐻‍❄️🧊", "🌿✊", "🤡🎤", "📉🌍", "♻️🌱", "🌅🚫", "❤️‍🔥", "🛑🛢️", "✊🌊", "🔥💰", "👁️👄👁️"],
+            hashtags: ["#FridaysForFuture", "#HowDareYou", "#ClimateStrike", "#UniteBehindTheScience", "#NoPlanetB", "#BlahBlahBlah", "#ListenToTheScience", "#EcoAnxiety", "#SystemChangeNotClimateChange", "#StopFossilFuels", "#YouthStrike", "#ClimateEmergency", "#EndCapitalism", "#SaveTheArctic", "#NetZeroNow", "#GretaEffect"],
+            selfPraises: ["Я голос бессловесного поколения.", "Никто не говорит правду власти так, как я.", "Я абсолютный климатический пророк.", "Мой злой взгляд может снизить выбросы углерода.", "Я в одиночку запустила глобальное движение.", "Я спасительница белых медведей.", "Я самый известный аутичный активист в мире.", "Я переплыла океан, чтобы спасти планету.", "Я кошмар для CEO ископаемого топлива.", "Никто не понимает доклады IPCC так, как я.", "Я абсолютный эко-воин.", "Я моральный компас человечества.", "Я смело прогуливала школу, чтобы спасти ваше будущее.", "Я бесспорная королева климатической забастовки.", "Я единственная, кто ясно видит чрезвычайную ситуацию.", "Я величайшая эколог в истории."]
+        },
+        zh: {
+            prefixes: ["你怎么敢，", "听听科学怎么说，", "废话连篇，", "站在议会大厦外，", "航行穿越大西洋后，", "根据最新的IPCC报告，", "团结在科学背后，", "致世界领导人：", "作为化石燃料时代的孩子，", "看着不断上升的海平面，", "尽管政客们做出空洞的承诺，", "带着我愤怒的表情，", "如果我们现在不采取行动，", "对穿西装的老头子们说：", "代表无声的北极熊发言，", "在我每周的气候罢课期间，"],
+            subjects: ["碳排放", "贪婪的化石燃料CEO", "我的气候罢课标语", "COP27的空头支票", "正在融化的极地冰盖", "完全没有行动", "联合国气候峰会", "资本主义死亡机器", "垂死的珊瑚礁", "乘坐私人飞机的世界领导人", "不断上升的全球气温", "被偷走的童年", "精神错乱的经济体系", "我们这一代的生态焦虑", "把自己粘在马路上的勇敢活动家", "生物多样性的全面破坏"],
+            verbs: ["正在字面意义上杀死我们", "必须接受审判", "写着“为气候罢课”", "只是废话连篇", "正在以前所未有的速度崩塌", "是一场绝对的灾难", "是一场巨大的公关作秀", "正在摧毁我们的未来", "将在十年内死亡", "应该立即被停飞", "是婴儿潮一代的错", "需要彻底推翻体制", "是基于童话故事", "是完全合理的", "是真正的英雄", "正在此刻发生"],
+            objects: ["同时驾驶着太阳能游艇。", "带着零碳足迹。", "在海洋沸腾之前。", "面对成年人的完全冷漠。", "带着我标志性的愤怒凝视。", "因为没有B计划（没有第二个地球）。", "在周五逃课的同时。", "对抗邪恶的化石燃料游说团体。", "在我戏剧性的联合国演讲中。", "不坐一架飞机。", "为了未出生的世代。", "当北极熊淹死的时候。", "在瑞典议会前。", "因为科学不是意见。", "对建制派毫无尊重。", "以阻止第六次大灭绝。"],
+            suffixes: ["🌍🔥", "😡📢", "🛶🌊", "🚫🏭", "🌡️📈", "🐻‍❄️🧊", "🌿✊", "🤡🎤", "📉🌍", "♻️🌱", "🌅🚫", "❤️‍🔥", "🛑🛢️", "✊🌊", "🔥💰", "👁️👄👁️"],
+            hashtags: ["#FridaysForFuture", "#HowDareYou", "#ClimateStrike", "#UniteBehindTheScience", "#NoPlanetB", "#BlahBlahBlah", "#ListenToTheScience", "#EcoAnxiety", "#SystemChangeNotClimateChange", "#StopFossilFuels", "#YouthStrike", "#ClimateEmergency", "#EndCapitalism", "#SaveTheArctic", "#NetZeroNow", "#GretaEffect"],
+            selfPraises: ["我是无声一代的声音。", "没有人比我更敢于向权力说真话。", "我是终极的气候先知。", "我愤怒的凝视可以降低碳排放。", "我单枪匹马发起了一场全球运动。", "我是北极熊的救世主。", "我是当今最著名的自闭症活动家。", "我横渡大洋来拯救地球。", "我是化石燃料CEO的噩梦。", "没有人比我更懂IPCC报告。", "我是终极的生态战士。", "我是人类的道德指南针。", "我勇敢地逃课来拯救你们的未来。", "我是气候罢课无可争议的女王。", "我是唯一清楚看到这场紧急情况的人。", "我是历史上最伟大的环保主义者。"]
+        }
+    }
+};
+
+// === REGISTRATION ===
+window.THRULALA_CHARACTERS = window.THRULALA_CHARACTERS || [];
+window.THRULALA_CHARACTERS.push(Character17);

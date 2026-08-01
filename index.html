@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #060b14;
+            background: #000000;
             color: #e7e9ea;
             min-height: 100vh;
             display: flex;
@@ -18,160 +18,202 @@
         .container {
             width: 100%;
             max-width: 600px;
-            border-left: 1px solid #1a2030;
-            border-right: 1px solid #1a2030;
+            border-left: 1px solid #2f3336;
+            border-right: 1px solid #2f3336;
             min-height: 100vh;
             position: relative;
-            background: #060b14;
+            background: #000000;
         }
         .header {
             position: sticky;
             top: 0;
-            background: rgba(6, 11, 20, 0.92);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(12px);
             z-index: 50;
-            border-bottom: 1px solid #1a2030;
-            padding: 12px 16px;
+            border-bottom: 1px solid #2f3336;
+            padding: 10px 16px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 12px;
         }
-        .header-icon {
+        .header-left {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .header-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #e7e9ea;
+            letter-spacing: -0.5px;
+        }
+        .version-tag {
+            font-size: 0.75rem;
+            color: #71767b;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .version-tag:hover { text-decoration: underline; }
+        .header-center {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: nowrap;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: transparent;
+            color: #71767b;
+            border: none;
+            padding: 8px;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .icon-btn:hover { background: rgba(255,255,255,0.1); color: #e7e9ea; }
+        .icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
+        .icon-btn.active { color: #1d9bf0; }
+        .thru-btn {
+            background: #1d9bf0;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin: 0 4px;
+        }
+        .thru-btn:hover { background: #1a8cd8; }
+        .thru-btn:active { transform: scale(0.95); }
+        
+        .locale-container { position: relative; display: flex; align-items: center; }
+        .locale-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 4px;
+            background: #000;
+            border: 1px solid #2f3336;
+            border-radius: 8px;
+            padding: 4px;
+            z-index: 100;
+            min-width: 100px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .locale-dropdown.show { display: flex; flex-direction: column; }
+        .locale-dropdown button {
+            background: transparent;
+            color: #e7e9ea;
+            border: none;
+            padding: 8px 12px;
+            text-align: left;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .locale-dropdown button:hover { background: rgba(255,255,255,0.1); }
+        .locale-dropdown button.active { color: #1d9bf0; font-weight: 700; }        
+        .avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             overflow: hidden;
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
             flex-shrink: 0;
         }
-        .header-text h1 {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #d4af37;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .header-text .motto {
-            font-size: 0.75rem;
-            color: #5a6070;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-        .compose-box {
-            border-bottom: 1px solid #1a2030;
-            padding: 14px 16px;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-        .avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
-            flex-shrink: 0;
-        }
-        .compose-right { flex: 1; }
-        .compose-placeholder {
-            color: #5a6070;
-            font-size: 1.15rem;
-            margin-bottom: 12px;
-            padding-top: 6px;
-        }
-        .compose-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .btn-row { display: flex; gap: 10px; }
-        .thru-btn {
-            background: linear-gradient(180deg, #e62b1e 0%, #b32018 100%);
-            color: white;
-            border: 2px solid #d4af37;
-            padding: 8px 24px;
-            font-size: 0.95rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            border-radius: 9999px;
-            cursor: pointer;
-            transition: all 0.15s;
-            box-shadow: 0 3px 0 #800f0a;
-            letter-spacing: 0.5px;
-        }
-        .thru-btn:hover {
-            box-shadow: 0 3px 0 #800f0a, 0 4px 12px rgba(214, 43, 30, 0.4);
-        }
-        .thru-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 0 0 #800f0a;
-        }
+        
         .nuke-btn {
             background: transparent;
             color: #f4212e;
-            border: 1.5px solid #f4212e;
-            padding: 8px 14px;
+            border: 1px solid #2f3336;
+            padding: 8px 16px;
             border-radius: 9999px;
-            font-weight: 800;
+            font-weight: 700;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.15s;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            transition: all 0.2s;
         }
-        .nuke-btn:hover {
-            background: rgba(244,33,46,0.12);
-            box-shadow: 0 0 12px rgba(244,33,46,0.25);
-        }
+        .nuke-btn:hover { background: rgba(244,33,46,0.1); border-color: #f4212e; }
         .nuke-btn:active { transform: scale(0.95); }
         .feed { display: flex; flex-direction: column; }
         .post {
-            border-bottom: 1px solid #1a2030;
+            border-bottom: 1px solid #2f3336;
             padding: 12px 16px;
             display: flex;
             gap: 12px;
-            transition: background 0.15s;
+            transition: background 0.2s;
             position: relative;
-            animation: slideIn 0.35s ease-out;
+            animation: slideIn 0.3s ease-out;
         }
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-15px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .post:hover { background: rgba(255,255,255,0.02); }
+        .post:hover { background: #080808; }
         .post-body { flex: 1; min-width: 0; }
         .post-header-line {
             display: flex;
             align-items: center;
             gap: 4px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             flex-wrap: wrap;
+            color: #71767b;
+            font-size: 0.9rem;
         }
         .post-name {
-            font-weight: 800;
+            font-weight: 700;
             color: #e7e9ea;
-            font-size: 0.95rem;
         }
+        .post-name:hover { text-decoration: underline; cursor: pointer; }
         .verified {
-            color: #d4af37;
-            font-size: 0.9rem;
-            line-height: 1;
+            color: #1d9bf0;
+            font-size: 0.85rem;
         }
-        .post-handle { color: #5a6070; font-size: 0.9rem; }
-        .post-dot { color: #5a6070; font-size: 0.8rem; }
-        .post-time { color: #5a6070; font-size: 0.85rem; }
+        .post-followers {
+            color: #71767b;
+            font-size: 0.85rem;
+        }
         .post-text {
             font-size: 1.05rem;
-            line-height: 1.45;
+            line-height: 1.4;
             color: #e7e9ea;
             margin-bottom: 6px;
             word-wrap: break-word;
         }
+        .translate-link {
+            display: inline-block;
+            color: #1d9bf0;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .translate-link:hover { text-decoration: underline; }
+        .translated-text {
+            font-size: 1.05rem;
+            line-height: 1.4;
+            color: #e7e9ea;
+            margin-bottom: 6px;
+            padding-left: 12px;
+            border-left: 3px solid #1d9bf0;
+        }
+        .translated-text.hidden { display: none; }
         .post-tags {
             margin-bottom: 10px;
             display: flex;
@@ -182,30 +224,28 @@
             color: #1d9bf0;
             font-size: 0.9rem;
             text-decoration: none;
-            transition: color 0.15s;
         }
-        .post-tags a:hover { color: #d4af37; text-decoration: underline; }
+        .post-tags a:hover { text-decoration: underline; }
         .reactions {
             display: flex;
-            gap: 18px;
-            align-items: center;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 400px;
+            margin-top: 8px;
         }
         .react-btn {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             background: none;
             border: none;
-            color: #5a6070;
-            font-size: 0.85rem;
+            color: #71767b;
+            font-size: 0.8rem;
             cursor: pointer;
-            padding: 4px 6px;
-            border-radius: 6px;
-            transition: all 0.15s;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            transition: all 0.2s;
             position: relative;
-            font-weight: 600;
-            min-width: 28px;
+            font-weight: 500;
         }
         .react-btn svg {
             width: 18px;
@@ -213,8 +253,7 @@
             fill: currentColor;
             transition: transform 0.2s;
         }
-        .react-btn:hover { background: rgba(255,255,255,0.05); }
-        .react-btn:hover svg { transform: scale(1.15); }
+        .react-btn:hover { color: #1d9bf0; background: rgba(29,155,240,0.1); }
         .react-btn.like:hover, .react-btn.like.liked { color: #f91880; }
         .react-btn.like.liked:hover { background: rgba(249,24,128,0.1); }
         .react-btn.fire:hover, .react-btn.fire.liked { color: #ff7a00; }
@@ -227,15 +266,9 @@
         .react-btn.skull.liked:hover { background: rgba(255,255,255,0.1); }
         .react-btn.dislike:hover, .react-btn.dislike.liked { color: #1d9bf0; }
         .react-btn.dislike.liked:hover { background: rgba(29,155,240,0.1); }
-        .react-btn .count {
-            min-width: 8px;
-            text-align: left;
-            display: inline-block;
-        }
+        .react-btn .count { display: inline-block; min-width: 8px; text-align: left; }
         .react-btn .count.hidden { display: none; }
-        .react-btn .count.appear {
-            animation: countAppear 0.4s ease-out;
-        }
+        .react-btn .count.appear { animation: countAppear 0.4s ease-out; }
         @keyframes countAppear {
             0% { opacity: 0; transform: scale(0) translateY(6px); }
             60% { transform: scale(1.2) translateY(-2px); }
@@ -244,199 +277,190 @@
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: #5a6070;
+            color: #71767b;
             font-size: 1.1rem;
-            border-bottom: 1px solid #1a2030;
+            border-bottom: 1px solid #2f3336;
         }
 
         /* NUKE */
         .nuke-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #060b14;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+            position: fixed; inset: 0; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            background: #000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
-        .nuke-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .nuke-red {
-            position: absolute;
-            inset: 0;
-            background: #e62b1e;
-            opacity: 0;
-            animation: nukeRedPulse 2.5s ease-in-out forwards;
-        }
-        @keyframes nukeRedPulse {
-            0% { opacity: 0; }
-            20% { opacity: 0.9; }
-            40% { opacity: 0.3; }
-            60% { opacity: 1; }
-            80% { opacity: 0.2; }
-            100% { opacity: 0; }
-        }
-        .nuke-flash {
-            position: absolute;
-            inset: 0;
-            background: #fff;
-            opacity: 0;
-            animation: nukeFlashWhite 2.5s ease-out forwards;
-        }
-        @keyframes nukeFlashWhite {
-            0% { opacity: 0; }
-            55% { opacity: 0; }
-            65% { opacity: 1; }
-            80% { opacity: 0.8; }
-            100% { opacity: 0; }
-        }
-        .nuke-text {
-            position: relative;
-            z-index: 10;
-            font-size: 4.5rem;
-            font-weight: 900;
-            color: #fff;
-            text-align: center;
-            text-shadow: 0 0 20px #d4af37, 0 0 40px #e62b1e;
-            opacity: 0;
-            animation: nukeTextShow 2.5s ease-out forwards;
-        }
-        @keyframes nukeTextShow {
-            0% { opacity: 0; transform: scale(0.3); }
-            15% { opacity: 1; transform: scale(1.3); }
-            30% { transform: scale(1); }
-            70% { opacity: 1; transform: scale(1.1); }
-            100% { opacity: 0; transform: scale(2); }
-        }
-        .post-shake {
-            animation: shakePost 0.15s ease-in-out infinite;
-        }
-        @keyframes shakePost {
-            0%, 100% { transform: translate(0, 0); }
-            25% { transform: translate(-2px, 1px); }
-            50% { transform: translate(2px, -1px); }
-            75% { transform: translate(-1px, 2px); }
-        }
-        .post-burn {
-            animation: burnAway 0.6s ease-in forwards;
-        }
-        @keyframes burnAway {
-            0% { opacity: 1; transform: scale(1); filter: brightness(1); }
-            30% { opacity: 0.7; transform: scale(1.01) rotate(0.5deg); filter: brightness(3) sepia(1) hue-rotate(-20deg) saturate(4); }
-            70% { opacity: 0.2; transform: scale(0.9) rotate(-1deg); filter: brightness(5) sepia(1) hue-rotate(-40deg) saturate(6); }
-            100% { opacity: 0; transform: scale(0.5); filter: brightness(8) sepia(1); }
+        .nuke-overlay.active { opacity: 1; pointer-events: all; }
+        .nuke-red { position: absolute; inset: 0; background: #f4212e; opacity: 0; animation: nukeRedPulse 2.5s ease-in-out forwards; }
+        @keyframes nukeRedPulse { 0% {opacity:0;} 20% {opacity:0.9;} 40% {opacity:0.3;} 60% {opacity:1;} 80% {opacity:0.2;} 100% {opacity:0;} }
+        .nuke-flash { position: absolute; inset: 0; background: #fff; opacity: 0; animation: nukeFlashWhite 2.5s ease-out forwards; }
+        @keyframes nukeFlashWhite { 0% {opacity:0;} 55% {opacity:0;} 65% {opacity:1;} 80% {opacity:0.8;} 100% {opacity:0;} }
+        .nuke-text { position: relative; z-index: 10; font-size: 4.5rem; font-weight: 900; color: #fff; text-align: center; text-shadow: 0 0 20px #fff, 0 0 40px #f4212e; opacity: 0; animation: nukeTextShow 2.5s ease-out forwards; }
+        @keyframes nukeTextShow { 0% {opacity:0; transform:scale(0.3);} 15% {opacity:1; transform:scale(1.3);} 30% {transform:scale(1);} 70% {opacity:1; transform:scale(1.1);} 100% {opacity:0; transform:scale(2);} }
+        .post-shake { animation: shakePost 0.15s ease-in-out infinite; }
+        @keyframes shakePost { 0%,100% {transform:translate(0,0);} 25% {transform:translate(-2px,1px);} 50% {transform:translate(2px,-1px);} 75% {transform:translate(-1px,2px);} }
+        .post-burn { animation: burnAway 0.6s ease-in forwards; }
+        @keyframes burnAway { 0% {opacity:1; transform:scale(1); filter:brightness(1);} 30% {opacity:0.7; transform:scale(1.01); filter:brightness(3) sepia(1) hue-rotate(-20deg) saturate(4);} 70% {opacity:0.2; transform:scale(0.9); filter:brightness(5) sepia(1) hue-rotate(-40deg) saturate(6);} 100% {opacity:0; transform:scale(0.5); filter:brightness(8) sepia(1);} }
+        
+        .post-limbo { animation: limboAway 0.6s ease-in forwards; pointer-events: none; }
+        @keyframes limboAway {
+            0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+            100% { opacity: 0; transform: translateY(-20px) scale(0.95); filter: blur(4px); }
         }
 
         .bot-toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(10, 15, 25, 0.95);
-            border: 1px solid #1a2030;
-            color: #d4af37;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s, transform 0.3s;
-            pointer-events: none;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            will-change: transform, opacity;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(10px);
+            background: rgba(29, 155, 240, 0.9); color: #fff; padding: 10px 16px; border-radius: 9999px;
+            font-size: 0.85rem; font-weight: 600; opacity: 0; transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        .bot-toast.show { opacity: 1; transform: translateY(0); }
+        .bot-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* AGE GATE */
+        #age-gate-overlay {
+            position: fixed; inset: 0; z-index: 10000;
+            background: rgba(0,0,0,0.95);
+            display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(8px);
+            padding: 20px;
+        }
+        .age-gate-box {
+            width: 100%; max-width: 380px;
+            background: #000;
+            border: 1px solid #2f3336;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+        .age-gate-box h2 {
+            color: #f4212e;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        .age-gate-box p {
+            color: #71767b;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .age-gate-toggle {
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; margin-bottom: 20px; cursor: pointer; user-select: none;
+            color: #e7e9ea; font-size: 0.9rem;
+        }
+        .age-gate-toggle input {
+            accent-color: #1d9bf0; width: 18px; height: 18px; cursor: pointer;
+        }
+        .captcha-container { margin-bottom: 12px; }
+        #captcha-canvas {
+            border-radius: 8px; margin-bottom: 12px; cursor: pointer;
+            border: 1px solid #2f3336; width: 200px; height: 60px; display: block; margin-left: auto; margin-right: auto;
+        }
+        #captcha-input {
+            width: 100%; padding: 10px; margin-bottom: 16px;
+            background: #080808; border: 1px solid #2f3336; border-radius: 8px;
+            color: #e7e9ea; font-size: 1rem; text-align: center; text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        #captcha-input:focus { outline: none; border-color: #1d9bf0; }
+        .age-error {
+            color: #f4212e; font-size: 0.85rem; margin-top: 12px; min-height: 1.2rem; font-weight: 600;
+        }
+        .captcha-hint {
+            font-size: 0.75rem; color: #71767b; margin-top: -8px; margin-bottom: 12px;
+        }
     </style>
 <base target="_blank">
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <div class="header-icon">
-            <svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
-                <rect x="0" y="0" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="3.69" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="7.38" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="11.07" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="14.76" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="18.45" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="22.14" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="25.83" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="29.52" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="33.21" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="36.9" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="40.59" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="44.28" width="48" height="3.72" fill="#B22234"/>
-                <rect x="0" y="0" width="19.2" height="25.83" fill="#3C3B6E"/>
-                <g fill="#fff">
-                    <circle cx="1.6" cy="1.3" r="0.7"/><circle cx="4.8" cy="1.3" r="0.7"/><circle cx="8" cy="1.3" r="0.7"/><circle cx="11.2" cy="1.3" r="0.7"/><circle cx="14.4" cy="1.3" r="0.7"/><circle cx="17.6" cy="1.3" r="0.7"/>
-                    <circle cx="3.2" cy="3.9" r="0.7"/><circle cx="6.4" cy="3.9" r="0.7"/><circle cx="9.6" cy="3.9" r="0.7"/><circle cx="12.8" cy="3.9" r="0.7"/><circle cx="16" cy="3.9" r="0.7"/>
-                    <circle cx="1.6" cy="6.5" r="0.7"/><circle cx="4.8" cy="6.5" r="0.7"/><circle cx="8" cy="6.5" r="0.7"/><circle cx="11.2" cy="6.5" r="0.7"/><circle cx="14.4" cy="6.5" r="0.7"/><circle cx="17.6" cy="6.5" r="0.7"/>
-                    <circle cx="3.2" cy="9.1" r="0.7"/><circle cx="6.4" cy="9.1" r="0.7"/><circle cx="9.6" cy="9.1" r="0.7"/><circle cx="12.8" cy="9.1" r="0.7"/><circle cx="16" cy="9.1" r="0.7"/>
-                    <circle cx="1.6" cy="11.7" r="0.7"/><circle cx="4.8" cy="11.7" r="0.7"/><circle cx="8" cy="11.7" r="0.7"/><circle cx="11.2" cy="11.7" r="0.7"/><circle cx="14.4" cy="11.7" r="0.7"/><circle cx="17.6" cy="11.7" r="0.7"/>
-                    <circle cx="3.2" cy="14.3" r="0.7"/><circle cx="6.4" cy="14.3" r="0.7"/><circle cx="9.6" cy="14.3" r="0.7"/><circle cx="12.8" cy="14.3" r="0.7"/><circle cx="16" cy="14.3" r="0.7"/>
-                    <circle cx="1.6" cy="16.9" r="0.7"/><circle cx="4.8" cy="16.9" r="0.7"/><circle cx="8" cy="16.9" r="0.7"/><circle cx="11.2" cy="16.9" r="0.7"/><circle cx="14.4" cy="16.9" r="0.7"/><circle cx="17.6" cy="16.9" r="0.7"/>
-                    <circle cx="3.2" cy="19.5" r="0.7"/><circle cx="6.4" cy="19.5" r="0.7"/><circle cx="9.6" cy="19.5" r="0.7"/><circle cx="12.8" cy="19.5" r="0.7"/><circle cx="16" cy="19.5" r="0.7"/>
-                    <circle cx="1.6" cy="22.1" r="0.7"/><circle cx="4.8" cy="22.1" r="0.7"/><circle cx="8" cy="22.1" r="0.7"/><circle cx="11.2" cy="22.1" r="0.7"/><circle cx="14.4" cy="22.1" r="0.7"/><circle cx="17.6" cy="22.1" r="0.7"/>
-                </g>
-            </svg>
-        </div>
-        <div class="header-text">
-            <h1>thrulala</h1>
-            <div class="motto">Truth Social на стероидах</div>
+    <div id="age-gate-overlay">
+        <div class="age-gate-box">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+                <div class="locale-container">
+                    <button id="age-locale-btn" class="icon-btn" style="color: #71767b;" title="Language">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+                        <span id="age-locale-label">EN</span>
+                    </button>
+                    <div id="age-locale-menu" class="locale-dropdown">
+                        <button data-locale="en">English</button>
+                        <button data-locale="zh">中文</button>
+                        <button data-locale="ru">Русский</button>
+                    </div>
+                </div>
+            </div>
+            <h2 id="age-title">⚠️ 18+ Content</h2>
+            <p id="age-desc">This feed contains satire, politics, and signs of an existential crisis. Please verify your age.</p>
+            <label class="age-gate-toggle">
+                <input type="checkbox" id="age-checkbox">
+                <span id="age-checkbox-text">I am 18 or older and ready to be disappointed</span>
+            </label>
+            <div class="captcha-container" style="display: none;">
+                <p id="age-captcha-text" class="captcha-hint">Enter the adult code word:</p>
+                <canvas id="captcha-canvas" width="200" height="60" onclick="generateCaptcha()" title="Click to refresh"></canvas>
+                <input type="text" id="captcha-input" placeholder="Code word" autocomplete="off">
+            </div>
+            <button id="age-verify-btn" class="thru-btn" style="width:100%; padding:10px; display: none;">Let me in</button>
+            <div id="age-error" class="age-error"></div>
         </div>
     </div>
-    <div class="compose-box">
-        <div class="avatar">
-            <svg viewBox="0 0 48 48" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
-                <rect x="0" y="0" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="3.69" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="7.38" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="11.07" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="14.76" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="18.45" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="22.14" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="25.83" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="29.52" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="33.21" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="36.9" width="48" height="3.69" fill="#B22234"/>
-                <rect x="0" y="40.59" width="48" height="3.69" fill="#fff"/>
-                <rect x="0" y="44.28" width="48" height="3.72" fill="#B22234"/>
-                <rect x="0" y="0" width="19.2" height="25.83" fill="#3C3B6E"/>
-                <g fill="#fff">
-                    <circle cx="1.6" cy="1.3" r="0.7"/><circle cx="4.8" cy="1.3" r="0.7"/><circle cx="8" cy="1.3" r="0.7"/><circle cx="11.2" cy="1.3" r="0.7"/><circle cx="14.4" cy="1.3" r="0.7"/><circle cx="17.6" cy="1.3" r="0.7"/>
-                    <circle cx="3.2" cy="3.9" r="0.7"/><circle cx="6.4" cy="3.9" r="0.7"/><circle cx="9.6" cy="3.9" r="0.7"/><circle cx="12.8" cy="3.9" r="0.7"/><circle cx="16" cy="3.9" r="0.7"/>
-                    <circle cx="1.6" cy="6.5" r="0.7"/><circle cx="4.8" cy="6.5" r="0.7"/><circle cx="8" cy="6.5" r="0.7"/><circle cx="11.2" cy="6.5" r="0.7"/><circle cx="14.4" cy="6.5" r="0.7"/><circle cx="17.6" cy="6.5" r="0.7"/>
-                    <circle cx="3.2" cy="9.1" r="0.7"/><circle cx="6.4" cy="9.1" r="0.7"/><circle cx="9.6" cy="9.1" r="0.7"/><circle cx="12.8" cy="9.1" r="0.7"/><circle cx="16" cy="9.1" r="0.7"/>
-                    <circle cx="1.6" cy="11.7" r="0.7"/><circle cx="4.8" cy="11.7" r="0.7"/><circle cx="8" cy="11.7" r="0.7"/><circle cx="11.2" cy="11.7" r="0.7"/><circle cx="14.4" cy="11.7" r="0.7"/><circle cx="17.6" cy="11.7" r="0.7"/>
-                    <circle cx="3.2" cy="14.3" r="0.7"/><circle cx="6.4" cy="14.3" r="0.7"/><circle cx="9.6" cy="14.3" r="0.7"/><circle cx="12.8" cy="14.3" r="0.7"/><circle cx="16" cy="14.3" r="0.7"/>
-                    <circle cx="1.6" cy="16.9" r="0.7"/><circle cx="4.8" cy="16.9" r="0.7"/><circle cx="8" cy="16.9" r="0.7"/><circle cx="11.2" cy="16.9" r="0.7"/><circle cx="14.4" cy="16.9" r="0.7"/><circle cx="17.6" cy="16.9" r="0.7"/>
-                    <circle cx="3.2" cy="19.5" r="0.7"/><circle cx="6.4" cy="19.5" r="0.7"/><circle cx="9.6" cy="19.5" r="0.7"/><circle cx="12.8" cy="19.5" r="0.7"/><circle cx="16" cy="19.5" r="0.7"/>
-                    <circle cx="1.6" cy="22.1" r="0.7"/><circle cx="4.8" cy="22.1" r="0.7"/><circle cx="8" cy="22.1" r="0.7"/><circle cx="11.2" cy="22.1" r="0.7"/><circle cx="14.4" cy="22.1" r="0.7"/><circle cx="17.6" cy="22.1" r="0.7"/>
-                </g>
-            </svg>
-        </div>
-        <div class="compose-right">
-            <div class="compose-placeholder">Что происходит?</div>
-            <div class="compose-actions">
-                <div class="btn-row">
-                    <button id="thru-btn" class="thru-btn">THRU</button>
-                    <button id="nuke-btn" class="nuke-btn">☢️ NUKE FEED</button>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <div class="header-title">thrulala</div>
+                <a href="https://github.com/tabookot/thrulala" target="_blank" class="version-tag" id="version-tag" rel="noopener noreferrer"></a>
+            </div>
+            <div class="header-center">
+                <button id="thru-btn" class="thru-btn">Thru</button>
+                <button id="auto-gen-btn" class="icon-btn" title="Auto-post">
+                    <svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+                </button>
+                <button id="nuke-btn" class="icon-btn" title="Clear Feed">
+                    <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                </button>
+                <button id="exit-btn" class="icon-btn" title="Exit">
+                    <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                </button>
+            </div>
+            <div class="header-actions">
+                <div class="locale-container">
+                    <button id="main-locale-btn" class="icon-btn" title="Language">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+                        <span id="main-locale-label">EN</span>
+                    </button>
+                    <div id="main-locale-menu" class="locale-dropdown">
+                        <button data-locale="en">English</button>
+                        <button data-locale="zh">中文</button>
+                        <button data-locale="ru">Русский</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     <div id="feed" class="feed">
-        <div class="empty-state">Нажмите THRU, чтобы выпустить абсолютную правду в эфир</div>
+        <div class="empty-state">Your feed is empty. Click Thru to generate.</div>
     </div>
 </div>
 <div id="bot-toast" class="bot-toast"></div>
+<script src="pers/character_1.js"></script>
+<script src="pers/character_2.js"></script>
+<script src="pers/character_3.js"></script>
+<script src="pers/character_4.js"></script>
+<script src="pers/character_5.js"></script>
+<script src="pers/character_6.js"></script>
+<script src="pers/character_7.js"></script>
+<script src="pers/character_8.js"></script>
+<script src="pers/character_9.js"></script>
+<script src="pers/character_10.js"></script>
+<script src="pers/character_11.js"></script>
+<script src="pers/character_12.js"></script>
+<script src="pers/character_13.js"></script>
+<script src="pers/character_14.js"></script>
+<script src="pers/character_15.js"></script>
+<script src="pers/character_16.js"></script>
+<script src="pers/character_17.js"></script>
+<script src="pers/character_18.js"></script>
+<script src="pers/character_19.js"></script>
+<script src="pers/character_20.js"></script>
+<script src="pers/character_21.js"></script>
+<script src="pers/character_22.js"></script>
+<script src="pers/character_23.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
