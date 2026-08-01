@@ -1,3 +1,5 @@
+[English](./README.EN.md) | [中文](./README.ZH.md) | [Русский](./README.md)
+
 # THRULALA 🦅
 
 `https://tabookot.github.io/thrulala/`
