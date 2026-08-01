@@ -2,7 +2,7 @@
 
 # THRULALA 🦅
 
-`https://tabookot.github.io/thrulala/`
+<a href="https://tabookot.github.io/thrulala/" style="display: inline-block; padding: 10px 24px; font-size: 16px; font-weight: bold; color: #ffffff; background-color: #1d9bf0; text-decoration: none; border-radius: 8px;">🚀 Открыть THRULALA</a>
 
 > Эмулятор абсолютной политической правды. Создает самые величайшие, победоносные и эпичные посты, которые вы когда-либо видели. Никто не делает их лучше!
 

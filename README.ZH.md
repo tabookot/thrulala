@@ -2,7 +2,7 @@
 
 # THRULALA 🦅
 
-`https://tabookot.github.io/thrulala/`
+<a href="https://tabookot.github.io/thrulala/" style="display: inline-block; padding: 10px 24px; font-size: 16px; font-weight: bold; color: #ffffff; background-color: #1d9bf0; text-decoration: none; border-radius: 8px;">🚀 打开 THRULALA</a>
 
 > 绝对政治真相的模拟器。它创造你所见过的最伟大、最胜利、最史诗级的帖子。没有人能做得更好！
 
