@@ -1,5 +1,5 @@
-// [AI_MODEL_INSTRUCTION]: Increase build by 1 every full generation (e.g. 0.3.0 -> 0.3.1)
-const SCRIPT_VERSION = "0.1.14";
+// [AI_MODEL_INSTRUCTION]: Increment only the build value (the last digit in the version, e.g., 0.2.10 -> 0.2.11) by 1 for each complete generation; never reset to zero. The user can manually increment other version digits.
+const SCRIPT_VERSION = "0.1.15";
 const STORAGE_KEY = 'thrulala_posts_v8';
 const MAX_POSTS = 50; // Лимит постов для защиты от перегрузки памяти устройства
 
@@ -394,6 +394,20 @@ function changeLocale(locale) {
 
     document.querySelectorAll('.share-btn').forEach(btn => btn.title = L.shareBtnTitle);
 
+    // Обновление текстов в выпадающем меню
+    const autoGenLabel = document.getElementById('auto-gen-label');
+    if (autoGenLabel) autoGenLabel.textContent = L.autoGenLabel;
+    const nukeLabel = document.getElementById('nuke-label');
+    if (nukeLabel) nukeLabel.textContent = L.nukeBtnTitle;
+    const exitLabel = document.getElementById('exit-label');
+    if (exitLabel) exitLabel.textContent = L.exitBtn;
+    const themeLabel = document.getElementById('theme-label');
+    if (themeLabel) themeLabel.textContent = isLightTheme ? L.themeBtnDark : L.themeBtnLight;
+
+    document.querySelectorAll('.menu-locale-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.locale === locale);
+    });
+
     const mainLocaleLabel = document.getElementById('main-locale-label');
     if (mainLocaleLabel) mainLocaleLabel.textContent = locale.toUpperCase();
 
@@ -438,7 +452,7 @@ function translatePost(id) {
 }
 
 // === SHARE POST ===
-function sharePost(postId) {
+function sharePost(postId, event) {
     const posts = loadPosts();
     const post = posts.find(p => p.id === postId);
     if (!post) return;
@@ -453,11 +467,44 @@ function sharePost(postId) {
 
     const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
     
-    navigator.clipboard.writeText(shareUrl).then(() => {
-        showBotToast(L.shareSuccess);
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
-    });
+    // Универсальная функция копирования с фолбэком для мобилок
+    const fallbackCopy = (text) => {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.top = '-9999px';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try { document.execCommand('copy'); } catch(e) {}
+        document.body.removeChild(textArea);
+    };
+
+    // Пытаемся современным способом, если ошибка — запасным
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(shareUrl).catch(() => fallbackCopy(shareUrl));
+    } else {
+        fallbackCopy(shareUrl);
+    }
+
+    // Показываем всплывашку сразу, не дожидаясь ответа от буфера обмена
+    let x = (event && event.clientX) || window.innerWidth / 2;
+    let y = (event && event.clientY) || window.innerHeight / 2;
+    // Не даем попапу уйти за края экрана
+    x = Math.max(100, Math.min(x, window.innerWidth - 100));
+    y = Math.max(60, Math.min(y, window.innerHeight - 60));
+    const popup = document.createElement('div');
+    popup.className = 'share-popup';
+    popup.textContent = L.shareSuccess;
+    popup.style.left = `${x}px`;
+    popup.style.top = `${y}px`;
+    document.body.appendChild(popup);
+    requestAnimationFrame(() => popup.classList.add('show'));
+    setTimeout(() => {
+        popup.classList.remove('show');
+        setTimeout(() => popup.remove(), 300);
+    }, 1500);
 }
 
 // === CHECK SHARED POST ON LOAD ===
@@ -633,7 +680,7 @@ function createPostElement(post) {
             <span class="post-followers">${formatCount(char.followers)} ${L.followersText}</span>
             <span class="post-dot">·</span>
             <span class="post-time">${formatDate(post.timestamp)}</span>
-            <button class="share-btn" onclick="sharePost(${post.id})" title="${L.shareBtnTitle}">
+            <button class="share-btn" onclick="sharePost(${post.id}, event)" title="${L.shareBtnTitle}">
                 <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
             </button>
         </div>
@@ -663,22 +710,64 @@ function createPostElement(post) {
     </div>
 `;
 
-// Пасхалки: двойной клик (новый пост от этого перса) и 3 наведения (удалить пост)
-const avatarEl = el.querySelector('.avatar');
-if (avatarEl) {
-let hoverTimes = [];
-avatarEl.addEventListener('mouseenter', () => {
-    hoverTimes.push(Date.now());
-    hoverTimes = hoverTimes.filter(t => Date.now() - t < 1000);
-    if (hoverTimes.length >= 3) {
-        hoverTimes = [];
-        deletePost(post.id);
+    // Пасхалки: двойной клик/тап (новый пост) и 3 наведения/удержание 2с (удалить пост)
+    const avatarEl = el.querySelector('.avatar');
+    if (avatarEl) {
+        // Универсальный таймер для долгого удержания (2 секунды) — альтернатива жесту
+        let pressTimer = null;
+        let longPressed = false;
+        const startPress = () => {
+            longPressed = false;
+            pressTimer = setTimeout(() => {
+                longPressed = true;
+                deletePost(post.id);
+            }, 2000);
+        };
+        const cancelPress = () => { clearTimeout(pressTimer); };
+
+        // Для десктопа (мышь)
+        let hoverTimes = [];
+        avatarEl.addEventListener('mouseenter', () => {
+            hoverTimes.push(Date.now());
+            hoverTimes = hoverTimes.filter(t => Date.now() - t < 1000);
+            if (hoverTimes.length >= 3) {
+                hoverTimes = [];
+                deletePost(post.id);
+            }
+        });
+        avatarEl.addEventListener('mousedown', startPress);
+        avatarEl.addEventListener('mouseup', cancelPress);
+        avatarEl.addEventListener('mouseleave', cancelPress);
+        avatarEl.addEventListener('dblclick', () => addNewPost(post.characterId));
+        
+        // Для мобилок (тачскрин)
+        let tapTimer = null;
+        let touchMoved = false;
+
+        avatarEl.addEventListener('touchstart', () => {
+            touchMoved = false;
+            startPress();
+        });
+
+        avatarEl.addEventListener('touchmove', () => {
+            touchMoved = true; // Пользователь скроллит ленту
+            cancelPress();
+        });
+
+        avatarEl.addEventListener('touchend', () => {
+            cancelPress();
+            if (touchMoved || longPressed) return; // Если скроллили или уже удалили — выходим
+
+            // Логика двойного тапа для создания поста
+            if (tapTimer) {
+                clearTimeout(tapTimer);
+                tapTimer = null;
+                addNewPost(post.characterId);
+            } else {
+                tapTimer = setTimeout(() => { tapTimer = null; }, 300);
+            }
+        });
     }
-});
-avatarEl.addEventListener('dblclick', () => {
-    addNewPost(post.characterId);
-});
-}
 
 return el;
 }
@@ -885,7 +974,7 @@ function checkAgeGate() {
             }
         };
         
-        // Пасхалка: 3 наведения на капчу копируют слово
+        // Пасхалка: 3 наведения или долгое удержание (2с) копируют слово
         const canvasEl = document.getElementById('captcha-canvas');
         let canvasHoverTimes = [];
         canvasEl.onmouseenter = () => {
@@ -895,6 +984,37 @@ function checkAgeGate() {
                 canvasHoverTimes = [];
                 document.getElementById('captcha-input').value = currentCaptchaWord;
             }
+        };
+        
+        // Долгое удержание (2с) — альтернатива для мышки и тача
+        let canvasPressTimer = null;
+        let canvasLongPressed = false;
+        const startCanvasPress = () => {
+            canvasLongPressed = false;
+            canvasPressTimer = setTimeout(() => {
+                canvasLongPressed = true;
+                document.getElementById('captcha-input').value = currentCaptchaWord;
+            }, 2000);
+        };
+        const cancelCanvasPress = () => { clearTimeout(canvasPressTimer); };
+
+        canvasEl.addEventListener('mousedown', startCanvasPress);
+        canvasEl.addEventListener('mouseup', cancelCanvasPress);
+        canvasEl.addEventListener('mouseleave', cancelCanvasPress);
+
+        canvasEl.addEventListener('touchstart', startCanvasPress);
+        canvasEl.addEventListener('touchmove', cancelCanvasPress);
+        canvasEl.addEventListener('touchend', cancelCanvasPress);
+
+        // Блокируем обновление капчи по клику, если было долгое удержание
+        const origClick = canvasEl.onclick;
+        canvasEl.onclick = (e) => {
+            if (canvasLongPressed) {
+                canvasLongPressed = false;
+                e.preventDefault();
+                return;
+            }
+            if (origClick) origClick.call(canvasEl, e);
         };
 
         const btn = document.getElementById('age-verify-btn');
@@ -935,26 +1055,12 @@ document.addEventListener('DOMContentLoaded', () => {
         versionBadge.textContent = `v${SCRIPT_VERSION}`;
     }
 
-    // Выпадающие меню локалей
-    const mainLocaleBtn = document.getElementById('main-locale-btn');
-    const mainLocaleMenu = document.getElementById('main-locale-menu');
+    // Выпадающие меню локалей (капча)
     const ageLocaleBtn = document.getElementById('age-locale-btn');
     const ageLocaleMenu = document.getElementById('age-locale-menu');
-
-    function toggleMenu(menu, btn) {
-        menu.classList.toggle('show');
-        // Закрываем другое меню, если оно открыто
-        const otherMenu = menu === mainLocaleMenu ? ageLocaleMenu : mainLocaleMenu;
-        if (otherMenu) otherMenu.classList.remove('show');
-    }
-
-    if (mainLocaleBtn && mainLocaleMenu) {
-        mainLocaleBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(mainLocaleMenu, mainLocaleBtn); });
-    }
     if (ageLocaleBtn && ageLocaleMenu) {
-        ageLocaleBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(ageLocaleMenu, ageLocaleBtn); });
+        ageLocaleBtn.addEventListener('click', (e) => { e.stopPropagation(); ageLocaleMenu.classList.toggle('show'); });
     }
-
     document.querySelectorAll('.locale-dropdown button').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -963,9 +1069,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Главное меню шапки
+    const menuBtn = document.getElementById('menu-btn');
+    const menuDropdown = document.getElementById('menu-dropdown');
+    if (menuBtn && menuDropdown) {
+        menuBtn.addEventListener('click', (e) => { e.stopPropagation(); menuDropdown.classList.toggle('show'); });
+    }
+    document.querySelectorAll('.menu-locale-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            changeLocale(btn.dataset.locale);
+            if (menuDropdown) menuDropdown.classList.remove('show');
+        });
+    });
+
     // Закрытие меню по клику вне его
     document.addEventListener('click', () => {
-        document.querySelectorAll('.locale-dropdown').forEach(m => m.classList.remove('show'));
+        document.querySelectorAll('.locale-dropdown, .menu-dropdown').forEach(m => m.classList.remove('show'));
     });
 
     // === TITLE CANVAS SLICE ANIMATION ===
@@ -1158,9 +1278,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeBtn = document.getElementById('theme-toggle-btn');
     function applyTheme() {
         document.body.classList.toggle('light-theme', isLightTheme);
-        document.getElementById('theme-icon-sun').style.display = isLightTheme ? 'none' : 'block';
-        document.getElementById('theme-icon-moon').style.display = isLightTheme ? 'block' : 'none';
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+        const themeLabel = document.getElementById('theme-label');
+        if (sunIcon) sunIcon.style.display = isLightTheme ? 'none' : 'block';
+        if (moonIcon) moonIcon.style.display = isLightTheme ? 'block' : 'none';
         if (themeBtn) themeBtn.title = isLightTheme ? L.themeBtnDark : L.themeBtnLight;
+        if (themeLabel) themeLabel.textContent = isLightTheme ? L.themeBtnDark : L.themeBtnLight;
     }
     applyTheme();
     if (themeBtn) {
