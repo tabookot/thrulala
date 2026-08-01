@@ -1,4 +1,4 @@
-[English](README.EN.md) | [中文](README.ZH.md) | [Русский](README.md)
+[English](README.en.md) | [中文](README.ZH.md) | [Русский](readme.md)
 
 # THRULALA 🦅
 
