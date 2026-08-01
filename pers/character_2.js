@@ -2,7 +2,7 @@
 // Полная база высказываний. Базовая локаль персонажа - ru.
 
 const Character2 = {
-    id: '2',
+    id: 2,
     name: 'Zhirinovsky',
     handle: '@zhirik',
     baseLocale: 'ru',

@@ -2,7 +2,7 @@
 // База высказываний абстрактного русского патриота. Базовая локаль - ru.
 
 const Character3 = {
-    id: '3',
+    id: 3,
     name: 'Russian Patriot',
     handle: '@ru_patriot',
     baseLocale: 'ru',
