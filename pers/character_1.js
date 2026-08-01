@@ -3,7 +3,7 @@
 // Элементы UI (кнопки, очищение ленты и т.д.) находятся в script.js.
 
 const Character1 = {
-    id: '1',
+    id: 1,
     name: 'POTUS',
     handle: '@realPOTUS',
     baseLocale: 'en',

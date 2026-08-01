@@ -1,11 +1,15 @@
 // [AI_MODEL_INSTRUCTION]: Increase build by 1 every full generation (e.g. 0.3.0 -> 0.3.1)
-const SCRIPT_VERSION = "0.1.13";
+const SCRIPT_VERSION = "0.1.14";
 const STORAGE_KEY = 'thrulala_posts_v8';
 const MAX_POSTS = 50; // Лимит постов для защиты от перегрузки памяти устройства
 
 // === ACTIVE CHARACTERS & LOCALE SETUP ===
 const ActiveCharacters = window.THRULALA_CHARACTERS || [];
-let userLocale = localStorage.getItem('thrulala_locale') || 'en';
+// Автоопределение системной локали (если не сохранена)
+const browserLang = (navigator.language || navigator.languages[0] || 'en').split('-')[0].toLowerCase();
+let userLocale = localStorage.getItem('thrulala_locale') || (['en', 'zh', 'ru'].includes(browserLang) ? browserLang : 'en');
+// Автоопределение системной темы (если не сохранена)
+let isLightTheme = localStorage.getItem('thrulala_theme') ? (localStorage.getItem('thrulala_theme') === 'light') : (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
 
 // Читаем состояние из URL (приоритет), если нет — из LocalStorage
 const urlParams = new URLSearchParams(window.location.search);
@@ -33,6 +37,9 @@ const UI_LOCALES = {
         autoGenLabel: "Авто-thru",
         exitBtn: "Выйти",
         nukeBtnTitle: "Очистить ленту",
+        themeBtnLight: "Светлая тема",
+        themeBtnDark: "Тёмная тема",
+        shareBtnTitle: "Поделиться",
         ageTitle: "⚠️ 18+ Контент",
         ageDesc: "В ленте присутствует сатира, политика и признаки экзистенциального кризиса. Подтвердите возраст.",
         ageCheckboxText: "Мне есть 18 лет, и я готов к разочарованиям",
@@ -41,7 +48,8 @@ const UI_LOCALES = {
         ageBtn: "Впустить",
         ageErr1: "Подтвердите, что вы готовы к страданиям (поставьте галочку).",
         ageErr2: "Неверно. Видимо, вы еще слишком молоды и полны надежд.",
-        adultWords: ['НАЛОГИ', 'ИПОТЕКА', 'ПРОСТАТА', 'БУХГАЛТЕР', 'РАЗВОД', 'ДИАГНОЗ', 'ХОНДРОЗ', 'АЛЬЦГЕЙМЕР']
+        adultWords: ['НАЛОГИ', 'ИПОТЕКА', 'ПРОСТАТА', 'БУХГАЛТЕР', 'РАЗВОД', 'ДИАГНОЗ', 'ХОНДРОЗ', 'АЛЬЦГЕЙМЕР'],
+        shareSuccess: "Ссылка на пост скопирована!"
     },
     en: {
         botActors: ['Bot farm','Troll squad','X Algorithm','Patriot bot','Fake army','Deep State Bot','Meme factory'],
@@ -58,6 +66,9 @@ const UI_LOCALES = {
         autoGenLabel: "Auto-thru",
         exitBtn: "Exit",
         nukeBtnTitle: "Clear Feed",
+        themeBtnLight: "Light mode",
+        themeBtnDark: "Dark mode",
+        shareBtnTitle: "Share",
         ageTitle: "⚠️ 18+ Content",
         ageDesc: "This feed contains satire, politics, and signs of an existential crisis. Please verify your age.",
         ageCheckboxText: "I am 18 or older and ready to be disappointed",
@@ -66,7 +77,8 @@ const UI_LOCALES = {
         ageBtn: "Let me in",
         ageErr1: "Confirm you are ready to suffer (check the box).",
         ageErr2: "Incorrect. You are probably still too young and full of hope.",
-        adultWords: ['TAXES', 'MORTGAGE', 'PROSTATE', 'DIVORCE', 'BACKPAIN', 'BALDING', 'HEMORRHOIDS']
+        adultWords: ['TAXES', 'MORTGAGE', 'PROSTATE', 'DIVORCE', 'BACKPAIN', 'BALDING', 'HEMORRHOIDS'],
+        shareSuccess: "Post link copied to clipboard!"
     },
     zh: {
         botActors: ['机器人农场','巨魔小队','X算法','爱国者机器人','假军队','深层政府机器人','梗图工厂'],
@@ -83,6 +95,9 @@ const UI_LOCALES = {
         autoGenLabel: "自动发帖",
         exitBtn: "退出",
         nukeBtnTitle: "清除信息流",
+        themeBtnLight: "浅色主题",
+        themeBtnDark: "深色主题",
+        shareBtnTitle: "分享",
         ageTitle: "⚠️ 18+ 内容",
         ageDesc: "此信息流包含讽刺、政治和存在主义危机的迹象。请验证您的年龄。",
         ageCheckboxText: "我已年满 18 岁，并准备好面对失望",
@@ -91,7 +106,8 @@ const UI_LOCALES = {
         ageBtn: "放我进去",
         ageErr1: "请确认您已准备好受苦（勾选复选框）。",
         ageErr2: "错误。你可能还太年轻，充满希望。",
-        adultWords: ['税收', '房贷', '前列腺', '离婚', '腰痛', '秃头', '痔疮']
+        adultWords: ['税收', '房贷', '前列腺', '离婚', '腰痛', '秃头', '痔疮'],
+        shareSuccess: "帖子链接已复制！"
     }
 };
 
@@ -110,7 +126,7 @@ function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min +
 function getRandomElement(arr) { return arr[getRandomInt(0, arr.length - 1)]; }
 
 function getCharacterById(id) {
-    return ActiveCharacters.find(c => c.id === id) || ActiveCharacters[0];
+    return ActiveCharacters.find(c => String(c.id) === String(id)) || ActiveCharacters[0];
 }
 
 function generateHashtagIndices(char) {
@@ -371,7 +387,12 @@ function changeLocale(locale) {
     if (exitBtn) exitBtn.title = L.exitBtn;
 
     const nukeBtn = document.getElementById('nuke-btn');
-    if (nukeBtn) nukeBtn.title = L.nukeBtnTitle; // Добавим перевод для очистки
+    if (nukeBtn) nukeBtn.title = L.nukeBtnTitle;
+
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    if (themeBtn) themeBtn.title = isLightTheme ? L.themeBtnDark : L.themeBtnLight;
+
+    document.querySelectorAll('.share-btn').forEach(btn => btn.title = L.shareBtnTitle);
 
     const mainLocaleLabel = document.getElementById('main-locale-label');
     if (mainLocaleLabel) mainLocaleLabel.textContent = locale.toUpperCase();
@@ -416,6 +437,124 @@ function translatePost(id) {
     }
 }
 
+// === SHARE POST ===
+function sharePost(postId) {
+    const posts = loadPosts();
+    const post = posts.find(p => p.id === postId);
+    if (!post) return;
+
+    const params = new URLSearchParams();
+    params.set('p', post.characterId);
+    params.set('sp', post.selfPraiseIndex);
+    if (!post.isSelfPraise) {
+        params.set('c', post.codes.join('-'));
+    }
+    params.set('ti', post.tagIndices.join('-'));
+
+    const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    
+    navigator.clipboard.writeText(shareUrl).then(() => {
+        showBotToast(L.shareSuccess);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+// === CHECK SHARED POST ON LOAD ===
+function checkSharedPost() {
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get('p');
+    const sp = params.get('sp');
+    const c = params.get('c');
+    const ti = params.get('ti');
+
+    if (!p || sp === null || !ti) return; // Не ссылка шеринга
+
+    const char = getCharacterById(p);
+    // Если персонаж не найден (getCharacterById вернул заглушку [0], но ID не совпадает) — выходим
+    if (String(char.id) !== String(p)) return;
+
+    const selfPraiseIndex = parseInt(sp, 10);
+    const tagIndices = ti.split('-').map(Number);
+
+    let codes = [-1,-1,-1,-1,-1];
+    let isSelfPraise = true;
+
+    if (selfPraiseIndex === -1 && c) {
+        codes = c.split('-').map(Number);
+        isSelfPraise = false;
+    }
+
+    // Валидация индексов для защиты от ошибок и крашей
+    const baseChar = char.locales[char.baseLocale];
+    if (isSelfPraise && (selfPraiseIndex < 0 || selfPraiseIndex >= baseChar.selfPraises.length)) return;
+    if (!isSelfPraise && (codes.some(isNaN) || codes.length !== 5 || 
+        codes[0] >= baseChar.prefixes.length || codes[1] >= baseChar.subjects.length || 
+        codes[2] >= baseChar.verbs.length || codes[3] >= baseChar.objects.length || 
+        codes[4] >= baseChar.suffixes.length)) return;
+    if (tagIndices.some(isNaN) || tagIndices.length !== 2 || 
+        tagIndices[0] >= baseChar.hashtags.length || tagIndices[1] >= baseChar.hashtags.length) return;
+
+    let posts = loadPosts();
+    const now = Date.now();
+    
+    // Ищем, есть ли уже такой пост в кэше (сравниваем по уникальной сигнатуре)
+    const existingIndex = posts.findIndex(post => 
+        String(post.characterId) === String(p) && 
+        post.isSelfPraise === isSelfPraise &&
+        post.selfPraiseIndex === selfPraiseIndex &&
+        post.codes.join('-') === codes.join('-') &&
+        post.tagIndices.join('-') === tagIndices.join('-')
+    );
+
+    let targetId;
+
+    if (existingIndex !== -1) {
+        // Пост уже есть — НЕ трогаем его дату и позицию, просто запоминаем ID для скролла
+        targetId = posts[existingIndex].id;
+    } else {
+        // Поста нет — создаем новый
+        targetId = now;
+        const sharedPost = {
+            id: now,
+            timestamp: new Date().toISOString(),
+            characterId: char.id, // Сохраняем оригинальный тип ID (число или строка)
+            codes: codes,
+            tagIndices: tagIndices,
+            isSelfPraise: isSelfPraise,
+            selfPraiseIndex: selfPraiseIndex,
+            likes: 0, fires: 0, laughs: 0, dislikes: 0, poops: 0, skulls: 0,
+            userLiked: false, userFired: false, userLaughed: false,
+            userDisliked: false, userPooped: false, userSkulled: false
+        };
+        posts.push(sharedPost);
+    }
+
+    // Проверяем лимит постов (оставляем последние 50)
+    if (posts.length > MAX_POSTS) {
+        posts.sort((a, b) => a.id - b.id);
+        posts = posts.slice(posts.length - MAX_POSTS);
+    }
+    
+    savePosts(posts);
+
+    // Безопасно очищаем URL, чтобы при обновлении страницы пост не дублировался
+    window.history.replaceState({}, document.title, window.location.pathname);
+
+    // Если экран капчи скрыт — обновляем ленту и плавно скроллим к нужному посту.
+    const ageOverlay = document.getElementById('age-gate-overlay');
+    if (!ageOverlay || ageOverlay.style.display !== 'flex') {
+        renderPosts();
+        
+        setTimeout(() => {
+            const targetEl = document.querySelector(`.post[data-id="${targetId}"]`);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
+    }
+}
+
 // === POST MANAGEMENT ===
 function deletePost(postId) {
     let posts = loadPosts();
@@ -432,9 +571,9 @@ function deletePost(postId) {
     }
 }
 
-function addNewPost(forceCharId = null) {
+function addNewPost(forceCharId = null, sharedPostObj = null) {
     let posts = loadPosts();
-    const newPost = createPostObject(forceCharId);
+    const newPost = sharedPostObj || createPostObject(forceCharId);
     posts.push(newPost);
     
     let postsToRemove = [];
@@ -488,13 +627,16 @@ function createPostElement(post) {
     el.innerHTML = `
         <div class="avatar">${char.icon}</div>
         <div class="post-body">
-            <div class="post-header-line">
-                <span class="post-name">${char.name}</span>
-                <span class="verified">✓</span>
-                <span class="post-followers">${formatCount(char.followers)} ${L.followersText}</span>
-                <span class="post-dot">·</span>
-                <span class="post-time">${formatDate(post.timestamp)}</span>
-            </div>
+        <div class="post-header-line">
+            <span class="post-name">${char.name}</span>
+            <span class="verified">✓</span>
+            <span class="post-followers">${formatCount(char.followers)} ${L.followersText}</span>
+            <span class="post-dot">·</span>
+            <span class="post-time">${formatDate(post.timestamp)}</span>
+            <button class="share-btn" onclick="sharePost(${post.id})" title="${L.shareBtnTitle}">
+                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+            </button>
+        </div>
             <div class="post-text">${buildText(post, charBaseLocale, post.characterId)}</div>
             <div class="post-tags">${buildTagsHTML(post.tagIndices, charBaseLocale, post.characterId)}</div>
             ${translationHtml}
@@ -784,6 +926,9 @@ function checkAgeGate() {
 document.addEventListener('DOMContentLoaded', () => {
     // Проверяем возраст (капча)
     checkAgeGate();
+    
+    // Проверяем, открыт ли пост по ссылке шеринга
+    checkSharedPost();
 
     const versionBadge = document.getElementById('version-tag');
     if (versionBadge) {
@@ -823,6 +968,209 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.locale-dropdown').forEach(m => m.classList.remove('show'));
     });
 
+    // === TITLE CANVAS SLICE ANIMATION ===
+    const logoCanvas = document.getElementById('logo-canvas');
+    if (logoCanvas) {
+        const ctx = logoCanvas.getContext('2d');
+        const text = "thrulala";
+        
+        // Параметры
+        const font = "bold 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        const letterHeight = 24;
+        const sliceHeight = 2; // Высота разреза
+        const maxLift = Math.floor(letterHeight * 0.5); // 1.5x высоты (подъем на 12px)
+        const totalSteps = maxLift / sliceHeight; // 6 тактов на полное раскрытие
+        const stepDuration = 50; // Мс на такт
+        const letterDelay = 100; // Задержка между буквами
+        const pause = 3000; // Пауза между циклами при наведении
+        
+        const N = Math.floor(letterHeight / sliceHeight); // 12 сегментов
+        const anchorIndex = N - 1; // 11 (неподвижный якорь)
+        const movingSegments = N - 1; // 11 подвижных
+        
+        // Тайминги активации сегментов (распределяем 11 сегментов на 6 тактов)
+        const segStartSteps = [];
+        for (let i = 0; i < movingSegments; i++) {
+            segStartSteps.push(Math.round(i * (totalSteps - 1) / (movingSegments - 1)));
+        }
+        
+        const expansionDuration = totalSteps * stepDuration;
+        const contractionDuration = (totalSteps + 1) * stepDuration; // На 1 такт дольше для плавного возврата
+        const letterAnimDuration = expansionDuration + contractionDuration;
+        const totalCycle = (text.length - 1) * letterDelay + letterAnimDuration;
+        
+        // Offscreen canvas
+        const offCanvas = document.createElement('canvas');
+        const offCtx = offCanvas.getContext('2d');
+        offCtx.font = font;
+        
+        const letters = [];
+        let xCursor = 0;
+        for (const char of text) {
+            const w = Math.ceil(offCtx.measureText(char).width) + 1;
+            letters.push({ char, x: xCursor, w: w });
+            xCursor += w;
+        }
+        const totalWidth = xCursor;
+        const cssHeight = letterHeight + maxLift; // 24 + 12 = 36px
+        
+        // Настройка размеров с учетом Retina
+        const dpr = window.devicePixelRatio || 1;
+        logoCanvas.width = totalWidth * dpr;
+        logoCanvas.height = cssHeight * dpr;
+        logoCanvas.style.width = totalWidth + 'px';
+        logoCanvas.style.height = cssHeight + 'px';
+        
+        ctx.scale(dpr, dpr);
+        offCanvas.width = totalWidth * dpr;
+        offCanvas.height = letterHeight * dpr;
+        offCtx.scale(dpr, dpr);
+        offCtx.font = font;
+        offCtx.textBaseline = 'top';
+        
+        function renderOffscreen() {
+            offCtx.clearRect(0, 0, totalWidth, letterHeight);
+            const isLight = document.body.classList.contains('light-theme');
+            offCtx.fillStyle = isLight ? '#0f1419' : '#e7e9ea';
+            letters.forEach(letter => {
+                offCtx.fillText(letter.char, letter.x, 0);
+            });
+        }
+        
+        function drawStatic() {
+            ctx.clearRect(0, 0, totalWidth, cssHeight);
+            letters.forEach(letter => {
+                ctx.drawImage(
+                    offCanvas,
+                    letter.x * dpr, 0, letter.w * dpr, letterHeight * dpr,
+                    letter.x, maxLift, letter.w, letterHeight
+                );
+            });
+        }
+        
+        renderOffscreen();
+        drawStatic();
+        
+        // Следим за сменой темы и перерисовываем канвас
+        const themeObserver = new MutationObserver(() => {
+            renderOffscreen();
+            if (!isAnimating) drawStatic();
+        });
+        themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+        
+        let isAnimating = false;
+        let startTime = 0;
+        let hoverInterval = null;
+        
+        function animate(now) {
+            if (!isAnimating) return;
+            
+            let T = now - startTime;
+            if (T >= totalCycle) {
+                isAnimating = false;
+                drawStatic();
+                return;
+            }
+            
+            ctx.clearRect(0, 0, totalWidth, cssHeight);
+            
+            for (let l = 0; l < letters.length; l++) {
+                const letter = letters[l];
+                let T_L = T - l * letterDelay;
+                
+                if (T_L < 0 || T_L >= letterAnimDuration) {
+                    ctx.drawImage(
+                        offCanvas,
+                        letter.x * dpr, 0, letter.w * dpr, letterHeight * dpr,
+                        letter.x, maxLift, letter.w, letterHeight
+                    );
+                    continue;
+                }
+                
+                let phase, step;
+                if (T_L < expansionDuration) {
+                    phase = 'expand';
+                    step = Math.floor(T_L / stepDuration);
+                } else {
+                    phase = 'contract';
+                    let T_C = T_L - expansionDuration;
+                    step = Math.floor(T_C / stepDuration);
+                }
+                
+                const anchorY = cssHeight - sliceHeight;
+                
+                for (let i = 0; i < N; i++) {
+                    let lift = 0;
+                    
+                    if (i === anchorIndex) {
+                        lift = 0;
+                    } else {
+                        if (phase === 'expand') {
+                            const startStep = segStartSteps[i];
+                            if (step >= startStep) {
+                                lift = (step - startStep + 1) * sliceHeight;
+                            }
+                        } else { // contract
+                            const startStep = segStartSteps[i];
+                            const peakLift = (totalSteps - startStep) * sliceHeight;
+                            lift = Math.max(0, peakLift - step * sliceHeight);
+                        }
+                    }
+                    
+                    const baseY = anchorY - (anchorIndex - i) * sliceHeight;
+                    const destY = baseY - lift;
+                    
+                    ctx.drawImage(
+                        offCanvas,
+                        letter.x * dpr, i * sliceHeight * dpr, letter.w * dpr, sliceHeight * dpr,
+                        letter.x, destY, letter.w, sliceHeight
+                    );
+                }
+            }
+            
+            if (isAnimating) requestAnimationFrame(animate);
+        }
+        
+        function triggerAnimation() {
+            if (!isAnimating) {
+                isAnimating = true;
+                startTime = performance.now();
+                requestAnimationFrame(animate);
+            }
+        }
+        
+        const titleEl = document.querySelector('.header-title');
+        if (titleEl) {
+            titleEl.addEventListener('mouseenter', () => {
+                triggerAnimation();
+                clearInterval(hoverInterval);
+                hoverInterval = setInterval(triggerAnimation, pause);
+            });
+            titleEl.addEventListener('mouseleave', () => {
+                clearInterval(hoverInterval);
+                hoverInterval = null;
+            });
+            titleEl.addEventListener('click', triggerAnimation);
+        }
+    }
+
+    // Кнопка переключения темы
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    function applyTheme() {
+        document.body.classList.toggle('light-theme', isLightTheme);
+        document.getElementById('theme-icon-sun').style.display = isLightTheme ? 'none' : 'block';
+        document.getElementById('theme-icon-moon').style.display = isLightTheme ? 'block' : 'none';
+        if (themeBtn) themeBtn.title = isLightTheme ? L.themeBtnDark : L.themeBtnLight;
+    }
+    applyTheme();
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            isLightTheme = !isLightTheme;
+            localStorage.setItem('thrulala_theme', isLightTheme ? 'light' : 'dark');
+            applyTheme();
+        });
+    }
+
     // Кнопка авто-постинга
     const autoGenBtn = document.getElementById('auto-gen-btn');
     if (autoGenBtn) {
@@ -858,20 +1206,26 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('nuke-btn').addEventListener('click', nukeFeed);
 
     document.getElementById('exit-btn').addEventListener('click', () => {
-        // Полный сброс кэша и состояния (кроме локали)
+        // Полная очистка кэша от всех параметров
         localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem('thrulala_autogen');
         localStorage.removeItem('thrulala_adult_verified');
         localStorage.removeItem('thrulala_last_active');
+        localStorage.removeItem('thrulala_theme');
+        localStorage.removeItem('thrulala_locale');
         
-        // Сброс переменных состояния в памяти
+        // Автоопределение системной локали и темы заново
+        const sysLang = (navigator.language || navigator.languages[0] || 'en').split('-')[0].toLowerCase();
+        userLocale = ['en', 'zh', 'ru'].includes(sysLang) ? sysLang : 'en';
+        isLightTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
         isAutoGenEnabled = true;
         
         // Обновление UI
         const autoGenBtn = document.getElementById('auto-gen-btn');
         if (autoGenBtn) autoGenBtn.classList.add('active');
         
-        renderPosts(); // Показываем пустую ленту
+        applyTheme();
+        changeLocale(userLocale); // Применит язык и вызовет renderPosts()
         checkAgeGate(); // Откроет капчу, так как thrulala_adult_verified удален
     });
 });
