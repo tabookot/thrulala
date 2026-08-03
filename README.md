@@ -6,7 +6,7 @@
 
 > An emulator of absolute political truth. It creates the greatest, most victorious, and epic posts you have ever seen. Nobody does it better!
 
-This single-page web application generates absurd but grammatically correct, pompous posts in the style of electoral rhetoric. The generator is hardcoded with typical speech patterns, country names, names of active politicians, and signature epic pathos.
+This single-page web app generates absurd, yet almost grammatically correct, bombastic posts in the style of electoral rhetoric. The generator is pre-programmed with typical phrases, country names, current politicians, and signature epic pomp.
 
 Author collective — GLM, Kimi, Gemini.
 
@@ -21,12 +21,6 @@ Author collective — GLM, Kimi, Gemini.
 * **Auto-generation & Auto-cleaning:** The feed lives its own life — it automatically generates posts and gently dissolves old ones (limit of 50) so it doesn't overload your device.
 * **Premium Design:** Dark background in the style of X (Twitter) / Threads, smooth animations for appearance, dissolving, and a nuclear explosion effect when clearing the feed.
 * **Zero Dependencies:** Pure HTML, CSS, and Vanilla JavaScript. No `npm install` required.
-
-## 🥚 Easter Eggs
-
-1. **Double-click** on a character's avatar — instantly generates a new post from that specific politician.
-2. **The "Eraser" Gesture** — quickly hover and remove your cursor from the avatar 3 times within one second. The post will vanish into oblivion.
-3. **Captcha Hack** — if you're too lazy to type the adult code word, just quickly swipe your cursor over the captcha image itself 3 times in one second. The word will automatically copy itself into the input field.
 
 ## 🚀 How to Run Locally
 
