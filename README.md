@@ -12,20 +12,6 @@ Author collective — GLM, Kimi, Gemini.
 
 ![Thrulala Preview](https://img.shields.io/badge/Status-Absolutely%20Great-red) ![Tech Stack](https://img.shields.io/badge/HTML%2FCSS%2FJS-Vanilla-gold)
 
-## Technical Highlights
-
-THRULALA is built as a self-contained client-side JavaScript application:
-
-- **Vanilla JavaScript** — no frontend framework or build system
-- **HTML5 Canvas** — real-time procedural graphics, animations and games
-- **Browser APIs** — LocalStorage, Canvas and responsive browser capabilities
-- **Client-side only** — no backend, database or user accounts
-- **Interactive modules** — visual experiments, animations and playable mini-games
-- **Responsive rendering** — designed to run directly in a desktop or mobile browser
-
-The project is intentionally implemented with standard web technologies to explore
-interactive graphics, animation techniques and browser-based JavaScript applications.
-
 ## 🇺🇸 Features
 
 * **Multi-character Feed:** The timeline combines several colorful figures at once. New posts are generated randomly on behalf of any of them.
@@ -60,22 +46,13 @@ The project is initially adapted for hosting on GitHub Pages:
 * Vanilla JavaScript (string generation from arrays, LocalStorage handling)
 * Canvas API (custom backend-less captcha generation)
 
-## For Developers
-
-THRULALA is also a small playground for experimenting with browser JavaScript.
-
-The source code contains examples of:
-
-- Canvas-based animation loops
-- procedural visual effects
-- sprite-based animation
-- lightweight browser game mechanics
-- keyboard and pointer interaction
-- responsive canvas rendering
-- client-side state persistence
-- animation timing and performance optimization
-
-Everything runs directly in the browser without a server-side component.
+THRULALA is built as a self-contained client-side JavaScript application:
+- **Vanilla JavaScript** — no frontend framework or build system
+- **HTML5 Canvas** — real-time procedural graphics, animations and games
+- **Browser APIs** — LocalStorage, Canvas and responsive browser capabilities
+- **Client-side only** — no backend, database or user accounts
+- **Interactive modules** — visual experiments, animations and playable mini-games
+- **Responsive rendering** — designed to run directly in a desktop or mobile browser
 
 ## ⚠️ Disclaimer
 
