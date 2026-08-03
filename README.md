@@ -14,7 +14,7 @@ Author collective — GLM, Kimi, Gemini.
 
 ## 🇺🇸 Features
 
-* **Multi-character Feed:** The timeline combines several colorful figures at once. Here you have an abstract "POTUS" (clearly modeled after Donald Trump), "Zhirik" (V. Zhirinovsky with his penguins and the Indian Ocean), "The Patriot" (Dmitry Medvedev and his radioactive ash), and "El Anarcap" (Javier Milei with a chainsaw and the Austrian school of economics). New posts are generated randomly on behalf of any of them.
+* **Multi-character Feed:** The timeline combines several colorful figures at once. New posts are generated randomly on behalf of any of them.
 * **Realistic Inflation:** Bot farms and X algorithms continuously inflate likes, fires, skulls, and poop reactions. The inflation rate depends on the real-world follower count of the prototype (Trump gets the maximum boost!).
 * **Multilingual Support:** The UI supports English, Chinese, and Russian. If a character's base locale (e.g., Trump thinks in English) differs from yours, a "Translate" button will appear under the post.
 * **18+ Canvas Captcha:** A completely standalone captcha drawn via the Canvas API. To enter, you must check a box confirming your readiness for disappointment and enter the "adult code word" (TAXES, MORTGAGE, 税收).
